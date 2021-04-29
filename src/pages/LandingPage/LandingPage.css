@@ -1,0 +1,67 @@
+.p-landWrap {
+  background: url("pexels-sathesh.jpg") no-repeat fixed center;
+  background-size: cover;
+  height: 100vh;
+  min-height: 300px;
+  min-width: 300px;
+}
+
+.p-landing {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.p-landWrap .p-landing h1 {
+  font-family: "New Tegomin", serif;
+}
+
+.p-landing > h1 {
+  padding: 20px;
+  color: aquamarine;
+}
+
+.p-landing > button {
+  border-radius: 20px;
+  width: 6em;
+}
+
+.p-landWrap button {
+  color: aquamarine;
+  border-color: aquamarine;
+  font-family: "Poppins", sans-serif;
+}
+
+.p-landWrap .btn-outline-success:hover {
+  color: black;
+  background-color: aquamarine;
+  border-color: aquamarine;
+}
+
+.p-landWrap .btn-outline-success:not(:disabled):not(.disabled):active {
+  color: black;
+  background-color: turquoise;
+  border-color: turquoise;
+}
+
+.p-landGetStarted {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.p-landGetStarted > h1 {
+  font-family: "New Tegomin", serif;
+
+  color: tomato;
+  font-weight: 700;
+}
+
+.p-landGetStarted > button {
+  width: 15em;
+  /* margin: auto; */
+}
+
+.p-landWrap .justify-content-md-center {
+  margin-top: 100px;
+}
