@@ -1,0 +1,26 @@
+.pagenotfound-img {
+  background-image: url("pexels-toni-cuenca.jpg");
+  background-color: #cccccc;
+  height: 500px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  height: 100vh;
+  margin: 0;
+  color: whitesmoke;
+}
+
+.pagenotfound-img h1 {
+  font-family: "Sacramento", cursive;
+  padding-top: 50px;
+  font-size: 10em;
+}
+
+.pagenotfound-img .nav-link {
+  display: inline-block;
+}
+
+.pagenotfound-img .nav-link:hover {
+  color: aquamarine;
+}
