@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/react-typing-app/static/css/main.cf413258.chunk.css",
-    "main.js": "/react-typing-app/static/js/main.ef2a08e8.chunk.js",
-    "main.js.map": "/react-typing-app/static/js/main.ef2a08e8.chunk.js.map",
+    "main.css": "/react-typing-app/static/css/main.be3fda2d.chunk.css",
+    "main.js": "/react-typing-app/static/js/main.2e9a3ab6.chunk.js",
+    "main.js.map": "/react-typing-app/static/js/main.2e9a3ab6.chunk.js.map",
     "runtime-main.js": "/react-typing-app/static/js/runtime-main.7a4ad4b5.js",
     "runtime-main.js.map": "/react-typing-app/static/js/runtime-main.7a4ad4b5.js.map",
     "static/css/2.4c97ca4f.chunk.css": "/react-typing-app/static/css/2.4c97ca4f.chunk.css",
-    "static/js/2.cb936637.chunk.js": "/react-typing-app/static/js/2.cb936637.chunk.js",
-    "static/js/2.cb936637.chunk.js.map": "/react-typing-app/static/js/2.cb936637.chunk.js.map",
+    "static/js/2.61678e8d.chunk.js": "/react-typing-app/static/js/2.61678e8d.chunk.js",
+    "static/js/2.61678e8d.chunk.js.map": "/react-typing-app/static/js/2.61678e8d.chunk.js.map",
     "static/js/3.6ef06e0d.chunk.js": "/react-typing-app/static/js/3.6ef06e0d.chunk.js",
     "static/js/3.6ef06e0d.chunk.js.map": "/react-typing-app/static/js/3.6ef06e0d.chunk.js.map",
     "index.html": "/react-typing-app/index.html",
     "static/css/2.4c97ca4f.chunk.css.map": "/react-typing-app/static/css/2.4c97ca4f.chunk.css.map",
-    "static/css/main.cf413258.chunk.css.map": "/react-typing-app/static/css/main.cf413258.chunk.css.map",
-    "static/js/2.cb936637.chunk.js.LICENSE.txt": "/react-typing-app/static/js/2.cb936637.chunk.js.LICENSE.txt",
+    "static/css/main.be3fda2d.chunk.css.map": "/react-typing-app/static/css/main.be3fda2d.chunk.css.map",
+    "static/js/2.61678e8d.chunk.js.LICENSE.txt": "/react-typing-app/static/js/2.61678e8d.chunk.js.LICENSE.txt",
     "static/media/LandingPage.css": "/react-typing-app/static/media/pexels-sathesh.462a4d04.jpg",
     "static/media/PageNotFound.css": "/react-typing-app/static/media/pexels-toni-cuenca.efff0e43.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.7a4ad4b5.js",
     "static/css/2.4c97ca4f.chunk.css",
-    "static/js/2.cb936637.chunk.js",
-    "static/css/main.cf413258.chunk.css",
-    "static/js/main.ef2a08e8.chunk.js"
+    "static/js/2.61678e8d.chunk.js",
+    "static/css/main.be3fda2d.chunk.css",
+    "static/js/main.2e9a3ab6.chunk.js"
   ]
 }
