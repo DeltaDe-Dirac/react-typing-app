@@ -69,4 +69,13 @@
 .p-landWrap .justify-content-md-center {
   margin-top: 100px;
 }
+
+.p-landWrap .p-landGetStarted > h1 > span.strong {
+  color: tomato;
+  font-weight: 600;
+}
+.p-landWrap .p-landGetStarted > h1 > span.weak {
+  color: rgb(255, 148, 136);
+  font-weight: 1;
+}
 /* ------------------------------------------------------------------ */
