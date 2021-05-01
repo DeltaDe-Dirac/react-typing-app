@@ -50,6 +50,7 @@
 .c-loginForm .submitForm > button {
   color: aquamarine;
   border-color: aquamarine;
+  flex-grow: 1;
 }
 
 .c-loginForm .submitForm .btn-outline-success:hover {
