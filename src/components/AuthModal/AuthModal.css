@@ -1,5 +1,5 @@
 .c-authModal .modal-content {
-  background: url("./pexels-sebastiaan-stam-cropped.jpg");
+  background: url("./pexels-sebastiaan-stam-cropped.jpg") no-repeat center;
   background-size: cover;
 }
 /* ------------------------------------------------------------------ */

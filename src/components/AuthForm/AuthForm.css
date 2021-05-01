@@ -5,13 +5,13 @@
 /* ------------------------------------------------------------------ */
 
 /* DESIGN INPUT FIELDS */
-.c-loginForm .form-control {
+.c-loginForm .form-control
+/* .c-loginForm input:-internal-autofill-selected  */ {
   color: aqua;
   background-color: rgb(43, 40, 40);
 }
 
 .c-loginForm .form-control:focus {
-  color: #495057;
   background-color: rgb(43, 40, 40);
   border-color: aqua;
   color: aqua;
