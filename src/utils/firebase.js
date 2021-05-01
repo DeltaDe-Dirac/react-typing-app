@@ -4,7 +4,7 @@ import app from "firebase/app";
 const FirebaseContext = createContext(null);
 export { FirebaseContext };
 
-export default ({ children }) => {
+const children = ({ children }) => {
   if (!app.apps.length) {
     app.initializeApp({
       apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -19,3 +19,5 @@ export default ({ children }) => {
   }
   return <FirebaseContext.Provider value={app}>{children}</FirebaseContext.Provider>;
 };
+
+export default children;
