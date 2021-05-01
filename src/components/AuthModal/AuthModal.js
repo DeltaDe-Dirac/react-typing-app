@@ -1,11 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./AuthModal.css";
 import { Button, Modal } from "react-bootstrap";
 import AuthForm from "../AuthForm/AuthForm";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 export default function AuthModal({ show, setHide }) {
   const [isLogin, setIsLogin] = useState(true);
+  const [isLoggedin, setIsLoggedin] = useState(false);
+
+  if (isLoggedin) {
+    return <Redirect to="/portal" />;
+  }
+
+  //   useEffect(() => {
+  //     console.log("logged in");
+  //     return () => {
+  //       //   setIsLoggedin(false);
+  //     };
+  //   }, [isLoggedin]);
 
   return (
     <>
@@ -19,7 +31,7 @@ export default function AuthModal({ show, setHide }) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <AuthForm isLogin={isLogin} />
+          <AuthForm isLogin={isLogin} logIn={() => setIsLoggedin(true)} />
         </Modal.Body>
         <Modal.Footer>
           <Link to="#" onClick={() => alert("Sign in with Google")}>

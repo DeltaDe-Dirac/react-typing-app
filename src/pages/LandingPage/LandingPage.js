@@ -1,13 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./LandingPage.css";
 import { Container, Button, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import AuthModal from "../../components/AuthModal/AuthModal";
+import { FirebaseContext } from "../../utils/firebase";
+import "firebase/analytics";
+import "firebase/auth";
 
 export default function LandingPage() {
+  const firebase = useContext(FirebaseContext);
   const [cursorColor, toggleCursorColor] = useState(true);
   const [headerText, setHeaderText] = useState({ text: "Touch Typing", word: " Practice.", index: 0 });
   const [showAuth, setShowAuth] = useState(false);
+  const [isLoggedIn, setIsLoggedin] = useState(false);
 
   useEffect(() => {
     const blinkingCursor = setTimeout(function () {
@@ -39,6 +44,22 @@ export default function LandingPage() {
       }
     };
   }, [headerText]);
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(function (user) {
+      //   console.log("auth check");
+      if (user) {
+        setIsLoggedin(true);
+      }
+    });
+    //   return () => {
+    //       cleanup
+    //   }
+  }, [firebase]);
+
+  if (isLoggedIn && showAuth) {
+    return <Redirect push to="/portal" />;
+  }
 
   return (
     <div className="p-landWrap">
