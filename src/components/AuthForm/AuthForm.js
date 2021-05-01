@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./AuthForm.css";
-import { Form, Col, Button } from "react-bootstrap";
+import { Form, Col, Button, Alert } from "react-bootstrap";
 
 export default function LoginForm({ isLogin }) {
   const [validated, setValidated] = useState(false);
@@ -54,6 +54,9 @@ export default function LoginForm({ isLogin }) {
           {isLogin ? "Sign In" : "Sing Up"}
         </Button>
       </Form.Row>
+      <Alert variant="danger">
+        <p className="mb-0">authentication error messages</p>
+      </Alert>
     </Form>
   );
 }
