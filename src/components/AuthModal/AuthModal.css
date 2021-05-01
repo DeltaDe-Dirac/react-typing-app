@@ -1,0 +1,35 @@
+.c-authModal .modal-content {
+  background: url("./pexels-sebastiaan-stam-side.png");
+  background-size: cover;
+}
+/* ------------------------------------------------------------------ */
+
+/* MODAL TITLE */
+.c-authModal .modal-title {
+  color: aquamarine;
+  font-family: "New Tegomin", serif;
+}
+/* ------------------------------------------------------------------ */
+
+/* MODAL CLOSE X ICON  */
+.c-authModal .close {
+  color: tomato;
+}
+
+.c-authModal .close:not(:disabled):not(.disabled):focus,
+.c-authModal .close:not(:disabled):not(.disabled):hover {
+  opacity: 1;
+  color: tomato;
+}
+/* ------------------------------------------------------------------ */
+
+/* MODAL FOOTER  */
+.c-authModal .modal-footer,
+.c-authModal .close {
+  font-family: "Poppins", sans-serif;
+}
+
+.c-authModal .modal-footer {
+  justify-content: space-between;
+}
+/* ------------------------------------------------------------------ */

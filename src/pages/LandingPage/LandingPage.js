@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import "./LandingPage.css";
 import { Container, Button, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import AuthModal from "../../components/AuthModal/AuthModal";
 
 export default function LandingPage() {
   const [cursorColor, toggleCursorColor] = useState(true);
   const [headerText, setHeaderText] = useState({ text: "Touch Typing", word: " Practice.", index: 0 });
+  const [showAuth, setShowAuth] = useState(false);
 
   useEffect(() => {
     const blinkingCursor = setTimeout(function () {
@@ -43,7 +45,7 @@ export default function LandingPage() {
       <Container fluid>
         <div className="p-landing">
           <h1>TypeMe</h1>
-          <Button variant="outline-success" onClick={() => alert()}>
+          <Button variant="outline-success" onClick={() => setShowAuth(true)}>
             Login
           </Button>
         </div>
@@ -52,7 +54,7 @@ export default function LandingPage() {
             <div className="p-landGetStarted">
               <h1>
                 {headerText.text}
-                <span className={cursorColor ? "strong" : "weak"}>|</span>
+                <span className={cursorColor ? "strong" : "weak"}>_</span>
               </h1>
               <Link to="/portal" className="btn btn-outline-success">
                 Get Started
@@ -61,6 +63,7 @@ export default function LandingPage() {
           </Col>
         </Row>
       </Container>
+      <AuthModal show={showAuth} setHide={() => setShowAuth(false)} />
     </div>
   );
 }
