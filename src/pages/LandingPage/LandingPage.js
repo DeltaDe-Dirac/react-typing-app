@@ -1,18 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./LandingPage.css";
 import { Container, Button, Row, Col } from "react-bootstrap";
 import { Link, Redirect } from "react-router-dom";
 import AuthModal from "../../components/AuthModal/AuthModal";
-import { FirebaseContext } from "../../utils/firebase";
-import "firebase/analytics";
-import "firebase/auth";
 
-export default function LandingPage() {
-  const firebase = useContext(FirebaseContext);
+export default function LandingPage({ isLoggedIn, setIsLoggedIn }) {
   const [cursorColor, toggleCursorColor] = useState(true);
   const [headerText, setHeaderText] = useState({ text: "Touch Typing", word: " Practice.", index: 0 });
   const [showAuth, setShowAuth] = useState(false);
-  const [isLoggedIn, setIsLoggedin] = useState(false);
 
   useEffect(() => {
     const blinkingCursor = setTimeout(function () {
@@ -39,23 +34,12 @@ export default function LandingPage() {
     }
 
     return () => {
+      console.log("landing page cleanup");
       if (typeWord !== null) {
         clearTimeout(typeWord);
       }
     };
   }, [headerText]);
-
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged(function (user) {
-      //   console.log("auth check");
-      if (user) {
-        setIsLoggedin(true);
-      }
-    });
-    //   return () => {
-    //       cleanup
-    //   }
-  }, [firebase]);
 
   if (isLoggedIn && showAuth) {
     return <Redirect push to="/portal" />;
@@ -84,7 +68,12 @@ export default function LandingPage() {
           </Col>
         </Row>
       </Container>
-      <AuthModal show={showAuth} setHide={() => setShowAuth(false)} />
+      <AuthModal
+        show={showAuth}
+        setHide={() => setShowAuth(false)}
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+      />
     </div>
   );
 }

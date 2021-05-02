@@ -1,12 +1,13 @@
-import React, { useContext, createRef, useEffect, useState } from "react";
+import { useContext, createRef, useEffect, useState } from "react";
 import "./AuthForm.css";
 
 import { Form, Col, Button, Alert } from "react-bootstrap";
+import { Redirect } from "react-router-dom";
 import { FirebaseContext } from "../../utils/firebase";
 import "firebase/analytics";
 import "firebase/auth";
 
-export default function LoginForm({ isLogin, logIn }) {
+export default function LoginForm({ isLoginOrSignup, isLoggedIn, setIsLoggedIn }) {
   const [validated, setValidated] = useState(false);
   const [authError, setAuthError] = useState(null);
 
@@ -14,7 +15,16 @@ export default function LoginForm({ isLogin, logIn }) {
   const emailRef = createRef();
   const passRef = createRef();
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    return () => {
+      if (!isLoggedIn) {
+        setValidated(false);
+        setAuthError(null);
+      }
+    };
+  }, [isLoginOrSignup, isLoggedIn]);
+
+  function handleSubmit(e) {
     e.preventDefault();
     e.stopPropagation();
     setAuthError(null);
@@ -24,38 +34,33 @@ export default function LoginForm({ isLogin, logIn }) {
     }
 
     setValidated(true);
-  };
-
-  useEffect(() => {
-    return () => {
-      setValidated(false);
-      setAuthError(null);
-    };
-  }, [isLogin]);
+  }
 
   function authenticate() {
     const email = emailRef.current.value;
     const pass = passRef.current.value;
 
-    if (isLogin) {
+    if (isLoginOrSignup) {
       firebase
         .auth()
         .signInWithEmailAndPassword(email, pass)
         .then((userCredential) => {
           // console.log(userCredential.user);
-          logIn();
+          setIsLoggedIn(true);
         })
         .catch((error) => {
           console.error(error.code, "|", error.message);
           setAuthError(error.message);
         });
-    } else {
+    }
+    // sign up
+    else {
       firebase
         .auth()
         .createUserWithEmailAndPassword(email, pass)
         .then((userCredential) => {
           // console.log(userCredential.user);
-          logIn();
+          setIsLoggedIn(true);
         })
         .catch((error) => {
           console.error(error.code, "|", error.message);
@@ -64,14 +69,18 @@ export default function LoginForm({ isLogin, logIn }) {
     }
   }
 
+  if (isLoggedIn) {
+    return <Redirect push to="/portal" />;
+  }
+
   return (
-    <Form noValidate validated={validated} onSubmit={handleSubmit} className="c-loginForm">
+    <Form noValidate validated={validated} onSubmit={(e) => handleSubmit(e)} className="c-loginForm">
       {authError ? (
         <Alert variant="danger">
           <p className="mb-0">{authError}</p>
         </Alert>
       ) : null}
-      {!isLogin ? (
+      {!isLoginOrSignup ? (
         <>
           <Form.Row>
             <Form.Group as={Col} md="8" controlId="validationCustom01">
@@ -106,7 +115,7 @@ export default function LoginForm({ isLogin, logIn }) {
           <Form.Control.Feedback type="invalid">Required Field</Form.Control.Feedback>
         </Form.Group>
         <Button type="submit" variant="outline-success">
-          {isLogin ? "Sign In" : "Sing Up"}
+          {isLoginOrSignup ? "Sign In" : "Sing Up"}
         </Button>
       </Form.Row>
     </Form>
