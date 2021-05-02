@@ -1,10 +1,14 @@
+import { useState } from "react";
 import "./PortalPage.css";
 
-import { Container, Button } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import PortalNavBar from "../../components/PortalNavBar/PortalNavBar";
+import AuthModal from "../../components/AuthModal/AuthModal";
 
-export default function PortalPage({ isLoggedIn, isSignOut, setIsSignOut }) {
+export default function PortalPage({ isLoggedIn, setIsLoggedIn, isSignOut, setIsSignOut }) {
+  const [showAuth, setShowAuth] = useState(false);
+
   if (isSignOut) {
     console.log("back to home");
     return <Redirect push to="/" />;
@@ -12,7 +16,7 @@ export default function PortalPage({ isLoggedIn, isSignOut, setIsSignOut }) {
 
   return (
     <>
-      <PortalNavBar isLoggedIn={isLoggedIn} setIsSignOut={setIsSignOut} />
+      <PortalNavBar isLoggedIn={isLoggedIn} setIsSignOut={setIsSignOut} setShowAuth={setShowAuth} />
       <Container>
         <h1>
           {isLoggedIn === null
@@ -21,12 +25,13 @@ export default function PortalPage({ isLoggedIn, isSignOut, setIsSignOut }) {
             ? "Hello logged in user"
             : "Hello anonymous user"}
         </h1>
-        {isLoggedIn ? (
-          <Button type="button" variant="outline-success" onClick={() => setIsSignOut(true)}>
-            Sign Out
-          </Button>
-        ) : null}
       </Container>
+      <AuthModal
+        show={showAuth}
+        setHide={() => setShowAuth(false)}
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+      />
     </>
   );
 }

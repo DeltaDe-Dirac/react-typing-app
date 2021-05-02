@@ -1,7 +1,18 @@
-import React from "react";
-import { Button, Form, FormControl, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 
-export default function PortalNavBar({ isLoggedIn, setIsSignOut }) {
+export default function PortalNavBar({ isLoggedIn, setIsSignOut, setShowAuth }) {
+  function logOut(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsSignOut(true);
+  }
+
+  function logIn(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    setShowAuth(true);
+  }
+
   return (
     <>
       <Navbar bg="dark" variant="dark" expand="lg">
@@ -20,7 +31,7 @@ export default function PortalNavBar({ isLoggedIn, setIsSignOut }) {
                   <NavDropdown.Item href="#construction/3.2">Change Password</NavDropdown.Item>
                   <NavDropdown.Item href="#construction/3.3">Something</NavDropdown.Item>
                   <NavDropdown.Divider />
-                  <NavDropdown.Item href="#" onClick={() => setIsSignOut(true)}>
+                  <NavDropdown.Item href="#" onClick={(e) => logOut(e)} active={false}>
                     Logout
                   </NavDropdown.Item>
                 </NavDropdown>
@@ -28,7 +39,9 @@ export default function PortalNavBar({ isLoggedIn, setIsSignOut }) {
             ) : (
               <>
                 <Nav.Link href="#construction">Save Progress</Nav.Link>
-                <Nav.Link href="#construction">Login</Nav.Link>
+                <Nav.Link href="#" onClick={(e) => logIn(e)}>
+                  Login
+                </Nav.Link>
               </>
             )}
           </Nav>

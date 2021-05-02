@@ -52,7 +52,12 @@ export default function App() {
             <LandingPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
           </Route>
           <Route exact path="/portal">
-            <PortalPage isLoggedIn={isLoggedIn} isSignOut={isSignOut} setIsSignOut={setIsSignOut} />
+            <PortalPage
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
+              isSignOut={isSignOut}
+              setIsSignOut={setIsSignOut}
+            />
           </Route>
           <Route path="/construction">
             <PageNotFound

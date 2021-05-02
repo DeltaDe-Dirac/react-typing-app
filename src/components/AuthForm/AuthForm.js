@@ -2,12 +2,11 @@ import { useContext, createRef, useEffect, useState } from "react";
 import "./AuthForm.css";
 
 import { Form, Col, Button, Alert } from "react-bootstrap";
-import { Redirect } from "react-router-dom";
 import { FirebaseContext } from "../../utils/firebase";
 import "firebase/analytics";
 import "firebase/auth";
 
-export default function LoginForm({ isLoginOrSignup, isLoggedIn, setIsLoggedIn }) {
+export default function LoginForm({ isLoginOrSignup, isLoggedIn, setIsLoggedIn, setHide }) {
   const [validated, setValidated] = useState(false);
   const [authError, setAuthError] = useState(null);
 
@@ -47,6 +46,7 @@ export default function LoginForm({ isLoginOrSignup, isLoggedIn, setIsLoggedIn }
         .then((userCredential) => {
           // console.log(userCredential.user);
           setIsLoggedIn(true);
+          setHide();
         })
         .catch((error) => {
           console.error(error.code, "|", error.message);
@@ -61,16 +61,13 @@ export default function LoginForm({ isLoginOrSignup, isLoggedIn, setIsLoggedIn }
         .then((userCredential) => {
           // console.log(userCredential.user);
           setIsLoggedIn(true);
+          setHide();
         })
         .catch((error) => {
           console.error(error.code, "|", error.message);
           setAuthError(error.message);
         });
     }
-  }
-
-  if (isLoggedIn) {
-    return <Redirect push to="/portal" />;
   }
 
   return (
