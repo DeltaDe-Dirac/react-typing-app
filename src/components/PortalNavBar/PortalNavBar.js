@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Form, FormControl, Nav, Navbar, NavDropdown } from "react-bootstrap";
 
-export default function PortalNavBar() {
+export default function PortalNavBar({ isLoggedIn, setIsSignOut }) {
   return (
     <>
       <Navbar bg="dark" variant="dark" expand="lg">
@@ -13,13 +13,24 @@ export default function PortalNavBar() {
             <Nav.Link href="#construction">Link</Nav.Link>
           </Nav>
           <Nav className="mr-left">
-            <NavDropdown title="User" id="basic-nav-dropdown" drop="left">
-              <NavDropdown.Item href="#construction/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#construction/3.2">Another action</NavDropdown.Item>
-              <NavDropdown.Item href="#construction/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#construction/3.4">Separated link</NavDropdown.Item>
-            </NavDropdown>
+            {isLoggedIn ? (
+              <>
+                <NavDropdown title="User" id="basic-nav-dropdown" drop="left">
+                  <NavDropdown.Item href="#construction/3.1">Profile</NavDropdown.Item>
+                  <NavDropdown.Item href="#construction/3.2">Change Password</NavDropdown.Item>
+                  <NavDropdown.Item href="#construction/3.3">Something</NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item href="#" onClick={() => setIsSignOut(true)}>
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              </>
+            ) : (
+              <>
+                <Nav.Link href="#construction">Save Progress</Nav.Link>
+                <Nav.Link href="#construction">Login</Nav.Link>
+              </>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Navbar>

@@ -12,7 +12,7 @@ export default function PortalPage({ isLoggedIn, isSignOut, setIsSignOut }) {
 
   return (
     <>
-      <PortalNavBar />
+      <PortalNavBar isLoggedIn={isLoggedIn} setIsSignOut={setIsSignOut} />
       <Container>
         <h1>
           {isLoggedIn === null
