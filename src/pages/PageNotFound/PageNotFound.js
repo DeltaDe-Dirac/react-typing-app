@@ -8,13 +8,11 @@ import "./PageNotFound.css";
 import { Container } from "react-bootstrap";
 
 export default function PageNotFound({ imgPath, errCode, errText }) {
-  let history = useHistory();
+  const history = useHistory();
   const [redirectTo, setRedirectTo] = useState(null);
 
-  if (redirectTo === "home") {
-    return <Redirect to="/"></Redirect>;
-  } else if (redirectTo === "back") {
-    return <Redirect to={history.goBack()}></Redirect>;
+  if (redirectTo !== null) {
+    return <Redirect to={redirectTo}></Redirect>;
   }
 
   const img = process.env.PUBLIC_URL.concat(imgPath);
@@ -25,10 +23,10 @@ export default function PageNotFound({ imgPath, errCode, errText }) {
         <h1>{errCode}</h1>
         <div className="notfound">
           <p className="text-uppercase">{errText}</p>
-          <Nav.Link eventKey="home" onSelect={(selectedKey) => setRedirectTo(selectedKey)}>
+          <Nav.Link eventKey="/" onSelect={(selectedKey) => setRedirectTo(selectedKey)}>
             Home
           </Nav.Link>
-          <Nav.Link eventKey="back" onSelect={(selectedKey) => setRedirectTo(selectedKey)}>
+          <Nav.Link eventKey="back" onSelect={() => history.goBack()}>
             Back
           </Nav.Link>
         </div>
