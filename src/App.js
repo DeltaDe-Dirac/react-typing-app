@@ -54,8 +54,15 @@ export default function App() {
           <Route exact path="/portal">
             <PortalPage isLoggedIn={isLoggedIn} isSignOut={isSignOut} setIsSignOut={setIsSignOut} />
           </Route>
+          <Route path="/construction">
+            <PageNotFound
+              imgPath="/imgs/pexels-sebastiaan-stam-construction.jpg"
+              errCode="404"
+              errText="under construction"
+            />
+          </Route>
           <Route path="/">
-            <PageNotFound />
+            <PageNotFound imgPath="/imgs/pexels-toni-cuenca.jpg" errCode="404" errText="page not found" />
           </Route>
         </Switch>
       </HashRouter>
