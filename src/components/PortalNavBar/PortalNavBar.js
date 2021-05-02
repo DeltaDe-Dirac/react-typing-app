@@ -1,3 +1,4 @@
+import "./PortalNavBar.css";
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 
 export default function PortalNavBar({ isLoggedIn, setIsSignOut, setShowAuth }) {
@@ -15,8 +16,8 @@ export default function PortalNavBar({ isLoggedIn, setIsSignOut, setShowAuth }) 
 
   return (
     <>
-      <Navbar bg="dark" variant="dark" expand="lg">
-        <Navbar.Brand href="#/portal">TypeMe</Navbar.Brand>
+      <Navbar bg="dark" variant="dark" expand="lg" className="c-portalNavBar">
+        <Navbar.Brand href="#/">TypeMe</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
