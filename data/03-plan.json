@@ -1,0 +1,18 @@
+{
+  "name": "Interesting Facts",
+  "img": "03-plan.jpg",
+  "plan_id": 3,
+  "file": "03-plan.json",
+  "lessons": [
+    {
+      "id": 0,
+      "name": "Longest Word",
+      "text": "If you, like Jimmy, don’t think this monstrous moniker should be considered a real English word, you’d find some support from linguists. As a technical scientific term, the full name of titin doesn’t appear in any dictionary—not just because it would take 12 full pages to wrangle the 190,000-odd characters, but because of the way protein names are generated. According to international guidelines, a protein’s technical title lists every single amino acid found inside it. Even the smallest proteins contain no fewer than 20 amino acids, making for some pretty long names in their own right; titin, however, is the human body’s largest protein. Total amino acid count: 34,350. Spell out each of those acid names in a row and you get, well, a really long word. (You can see why scientists prefer titin.)  If you thought the longest word in English was hard to pronounce, start off with these English words that are hard to pronounce but aren’t nearly as long."
+    },
+    {
+      "id": 1,
+      "name": "Non stop Growing",
+      "text": "Once the growth of the rest of your body has slowed to a stop, your nose and your ears continue increasing in size. (So does that make it… three body parts that never stop growing?). Our noses and ears are unique compared to the rest of our bodies because they’re composed of soft tissue enveloped in cartilage. And it’s this soft tissue that keeps growing throughout our entire lives. “When you look at someone when they’re 80 vs. when they’re 20, they’ll have more cells in their ears and nose,” Dr. Neinstein says. If you’ve noticed that some older people seem to have larger ears and noses, well, this is why."
+    }
+  ]
+}
