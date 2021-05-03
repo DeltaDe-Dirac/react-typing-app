@@ -61,13 +61,13 @@ export default function App() {
           </Route>
           <Route path="/construction">
             <PageNotFound
-              imgPath="/imgs/pexels-sebastiaan-stam-construction.jpg"
+              imgPath="/imgs/background/pexels-sebastiaan-stam-construction.jpg"
               errCode="404"
               errText="under construction"
             />
           </Route>
           <Route path="/">
-            <PageNotFound imgPath="/imgs/pexels-toni-cuenca.jpg" errCode="404" errText="page not found" />
+            <PageNotFound imgPath="/imgs/background/pexels-toni-cuenca.jpg" errCode="404" errText="page not found" />
           </Route>
         </Switch>
       </HashRouter>

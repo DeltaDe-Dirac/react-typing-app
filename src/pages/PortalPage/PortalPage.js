@@ -5,6 +5,7 @@ import { Container } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import PortalNavBar from "../../components/PortalNavBar/PortalNavBar";
 import AuthModal from "../../components/AuthModal/AuthModal";
+import PlanCard from "../../components/PlanCard/PlanCard";
 
 export default function PortalPage({ isLoggedIn, setIsLoggedIn, isSignOut, setIsSignOut }) {
   const [showAuth, setShowAuth] = useState(false);
@@ -17,14 +18,9 @@ export default function PortalPage({ isLoggedIn, setIsLoggedIn, isSignOut, setIs
   return (
     <>
       <PortalNavBar isLoggedIn={isLoggedIn} setIsSignOut={setIsSignOut} setShowAuth={setShowAuth} />
-      <Container>
-        <h1>
-          {isLoggedIn === null
-            ? "Hello portal page no user"
-            : isLoggedIn
-            ? "Hello logged in user"
-            : "Hello anonymous user"}
-        </h1>
+      <Container fluid="lg" className="p-portalPage">
+        <h1>{isLoggedIn ? "Hello logged in user" : "Hello anonymous user"}</h1>
+        <PlanCard />
       </Container>
       <AuthModal
         show={showAuth}

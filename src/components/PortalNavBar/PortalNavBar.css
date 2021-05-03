@@ -1,5 +1,16 @@
+.c-portalNavBarWrapper {
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+}
+
+.c-portalNavBar {
+  align-items: baseline;
+}
+
 .c-portalNavBar .navbar-brand {
   font-family: "New Tegomin", serif;
   color: aquamarine;
   font-size: 1.5em;
+  align-items: baseline;
 }

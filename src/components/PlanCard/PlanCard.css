@@ -1,0 +1,15 @@
+.c-planCard [class^="col"] {
+  margin-bottom: 20px;
+}
+
+.c-planCard .card {
+  background-color: #343a40;
+  color: whitesmoke;
+  height: 100%;
+  /* font-family: "Poppins", sans-serif; */
+}
+
+.c-planCard .card > img {
+  height: 250px;
+  object-fit: cover;
+}

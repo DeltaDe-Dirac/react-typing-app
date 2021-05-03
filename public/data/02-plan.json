@@ -1,0 +1,18 @@
+{
+  "name": "Random Fun Facts",
+  "img": "02-plan.jpg",
+  "plan_id": 1,
+  "file": "02-plan.json",
+  "lessons": [
+    {
+      "id": 0,
+      "name": "Human Twins",
+      "text": "Do you get the feeling that there are more twins around these days than there used to be? No? Well, you should, because according to a new study in the journal Human Reproduction, the \"twinning rate\" has increased by one-third since the '80s—up from 9 to 12 twins per 1,000 deliveries. Currently that adds up to about 1.6 million twins born each year across the world—meaning one out of every 42 babies is a twin. Helping drive this is the increasing use of medically assisted reproduction, and the delay in childbearing (twinning has been found to increase with a mother's age)."
+    },
+    {
+      "id": 1,
+      "name": "Narwhal's Tusk",
+      "text": "Much like the rings of a tree can tell you its age and provide clues about the life it has lived, so too does the long tusk of the narwhal. Recent research led by a bioscience professor at Denmark's Aarhus University has shown that this peculiar arctic whale adds a layer to its distinctive tusk each year. And not only do these layers offer insight into the age of the narwhal (they've been known to live up to 50 years) but the conditions in which they lived—such as level of pollution, temperature levels, and even what their diet consisted of. You are what you eat!"
+    }
+  ]
+}
