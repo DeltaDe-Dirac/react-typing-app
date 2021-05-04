@@ -1,8 +1,9 @@
 {
   "name": "Random Fun Facts",
   "img": "02-plan.jpg",
-  "plan_id": 1,
+  "available_plan": 1,
   "file": "02-plan.json",
+  "link": "games",
   "lessons": [
     {
       "id": 0,
@@ -13,6 +14,46 @@
       "id": 1,
       "name": "Narwhal's Tusk",
       "text": "Much like the rings of a tree can tell you its age and provide clues about the life it has lived, so too does the long tusk of the narwhal. Recent research led by a bioscience professor at Denmark's Aarhus University has shown that this peculiar arctic whale adds a layer to its distinctive tusk each year. And not only do these layers offer insight into the age of the narwhal (they've been known to live up to 50 years) but the conditions in which they lived—such as level of pollution, temperature levels, and even what their diet consisted of. You are what you eat!"
+    },
+    {
+      "id": 2,
+      "name": "Food Waste",
+      "text": "Food waste is a huge problem. How big? About 931 million metric tons. That's how much food that researchers with the United Nations estimate was wasted in 2019, according to the Food Waste Index Report 2021, which surveyed 54 countries, finding that the majority of wasted food (61%) comes from homes while restaurants and other food services produce 26% of wasted food. Grocery stores make up just 13% of food waste."
+    },
+    {
+      "id": 3,
+      "name": "Sea Slugs",
+      "text": "It sounds like something out of a horror film, but it's all too real: The Elysia cf. marginata, a type of sea slug, has been found to not only survive decapitation, but to be able to grow a whole new body from it. Ecologists at Nara Women's University in Japan found that, a few hours after having their heads severed from their bodies, the snails' heads were already nibbling on algae as if nothing had happened. In about 20 days, one-third of the sea slugs studied had fully grown back their bodies—heart included."
+    },
+    {
+      "id": 4,
+      "name": "World's Smallest",
+      "text": "Those who think everything on the planet has already been discovered might just not be looking close enough. A tiny chameleon discovered in northern Madagascar and measuring just 28.9 millimeters is believed to be the smallest reptile on Earth. The itty bitty chameleon was recently discovered and reported in the January 2021 issue of Scientific Reports. But there's one thing about these critters that's big for its size: The genitalia of the males measures almost 20% of its body length."
+    },
+    {
+      "id": 5,
+      "name": "Goosebumps",
+      "text": "Why do we get goosebumps? In this physiological reaction, small muscles attached to individual body hairs contract, which leads the hair to stand on end. We inherited this ability from our ancestors in part as a way for our (then) coat of body hair to capture air beneath it and in that way retain heat. But, as George A. Bubenik, a physiologist and professor of zoology at the University of Guelph in Ontario, Canada, explained to Scientific American, it also caused our ancestors to appear bigger than they were, helping to ward off predators when they were frightened or on the defense. With modern humans having less body hair, goosebumps no longer cause us to look that much more intimidating."
+    },
+    {
+      "id": 6,
+      "name": "Spicy Food",
+      "text": "While humans have long had the rare distinction of being the only mammal that actually enjoys spicy food, that list has seen a new addition, as a study by Chinese researchers found that tree shrews have a mutation in their ion channel receptor, TRPV1, which makes it less sensitive to the \"hot\" chemical in chili peppers. As a result, the adorable critters happily gobbled up corn pellets laced with capsaicin (the compounds that give peppers their spice) while other mammals in the study avoided them."
+    },
+    {
+      "id": 7,
+      "name": "Human Body Glows",
+      "text": "It might be hard to see with your naked eye, but everyone you pass by every day is literally glowing. The human body emits a small quantity of visible light (\"visible\" in the technical sense—the illumination is about 1,000 times less intense than levels of light that we would actually be able to see). Researchers in Japan used a special camera to track this glow and found that it fluctuates throughout the day, with the body emitting its lowest levels of light around 10 a.m. and highest at around 4 p.m., a rhythm the scientists attribute to the changes in one's metabolism."
+    },
+    {
+      "id": 8,
+      "name": "Self-disinfecting",
+      "text": "Copper and its alloys, such as brass, have long been popular materials for manufacturing door knobs. It turns out, this may not just because the metal's hue makes it look nice. In fact, the material has been found to kill bacteria. According to one study from the National College of Kathmandu in Nepal, \"the metal ions denature protein of the target cells by binding to reactive groups resulting in their precipitation and inactivation. The high affinity of cellular proteins for the metallic ions results in the death of the cells due to cumulative effects of the ion within the cells.\" In other words, brass sterilizes the bacteria that can build up from all those (potentially unwashed) hands that grip it."
+    },
+    {
+      "id": 9,
+      "name": "First Computer",
+      "text": "These days, supercomputers are everywhere—and they really don't need much space at all. Have an Xbox One posted up in your living room? That's a supercomputer. A laptop-tablet hybrid in your bag? That's a supercomputer, too. (Don't even get us started on the thing in your pocket…) But when supercomputers first came around, they needed much, much more space. Just take a look at the world's first one: The Electronic Numerical Integrator and Computer (ENIAC). Originally built at the University of Pennsylvania's School of Engineering, in 1946, ENIAC weighed 60,000 pounds and took up a room larger than most studio apartments (1,500 square feet). Shortly after construction, ENIAC was sent off to the military, where it was used to calculate ballistic trajectories (translation: launch missiles) with frightening accuracy. Today, computer experts at Penn credit ENIAC with heralding in the \"dawn of the information age.\""
     }
   ]
 }
