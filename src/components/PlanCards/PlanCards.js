@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./PlanCards.css";
 import { Card, Col, Row } from "react-bootstrap";
 import axios from "axios";
-import plans from "./available-plans.json";
+import plans from "../../pages/GamePage/available-plans.json";
 import { Link } from "react-router-dom";
 
 export default function PlanCards() {
@@ -20,20 +20,13 @@ export default function PlanCards() {
           .get(dataPath.concat(fileName))
           .then((res) => {
             cardsArr.push(
-              <Col xs={12} md={6} lg={4} key={res.data.file}>
-                <Card>
-                  <Card.Img variant="top" src={imgPath.concat(res.data.img)} />
-                  <Card.Body>
-                    <Card.Title>{res.data.name}</Card.Title>
-                    <Card.Text>
-                      Some quick example text to build on the card title and make up the bulk of the card's content.
-                    </Card.Text>
-                    <Link to={`portal/${res.data.link}/${res.data.available_plan}`} className="btn btn-outline-primary">
-                      Start
-                    </Link>
-                  </Card.Body>
-                </Card>
-              </Col>
+              createPlanCard(
+                res.data.file,
+                imgPath.concat(res.data.img),
+                res.data.name,
+                res.data.link,
+                res.data.available_plan
+              )
             );
             setCards([...cardsArr]);
           })
@@ -41,6 +34,25 @@ export default function PlanCards() {
       );
     }
   }, [cards]);
+
+  function createPlanCard(key, imgsrc, title, link, linkParam) {
+    return (
+      <Col xs={12} md={6} lg={4} key={`plan-${key}`}>
+        <Card>
+          <Card.Img variant="top" src={imgsrc} />
+          <Card.Body>
+            <Card.Title>{title}</Card.Title>
+            <Card.Text>
+              Some quick example text to build on the card title and make up the bulk of the card's content.
+            </Card.Text>
+            <Link to={`portal/${link}/${linkParam}`} className="btn btn-outline-primary">
+              Start
+            </Link>
+          </Card.Body>
+        </Card>
+      </Col>
+    );
+  }
 
   return <Row className="c-planCard">{cards}</Row>;
 }

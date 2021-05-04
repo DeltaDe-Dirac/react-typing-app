@@ -22,7 +22,7 @@ export default function PortalNavBar({ isLoggedIn, setIsSignOut, setShowAuth }) 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link href="#construction">Home</Nav.Link>
+              <Nav.Link href="#/portal">Home</Nav.Link>
               <Nav.Link href="#construction">Link</Nav.Link>
             </Nav>
             <Nav className="mr-left">

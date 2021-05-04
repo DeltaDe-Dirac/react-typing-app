@@ -74,6 +74,7 @@ export default function App() {
               errText="under construction"
             />
           </Route>
+
           <Route path="/">
             <PageNotFound imgPath="/imgs/background/pexels-toni-cuenca.jpg" errCode="404" errText="page not found" />
           </Route>
