@@ -59,6 +59,14 @@ export default function App() {
               setIsSignOut={setIsSignOut}
             />
           </Route>
+          <Route exact path="/portal/games/:num">
+            <PortalPage
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
+              isSignOut={isSignOut}
+              setIsSignOut={setIsSignOut}
+            />
+          </Route>
           <Route path="/construction">
             <PageNotFound
               imgPath="/imgs/background/pexels-sebastiaan-stam-construction.jpg"
