@@ -1,30 +1,16 @@
-import { useEffect, useState } from "react";
 import "./LessonCards.css";
 
 import { Card, Col, Row } from "react-bootstrap";
-import axios from "axios";
 
-export default function LessonCards({ planName }) {
-  const [lessons, setLessons] = useState([]);
-
-  useEffect(() => {
-    if (lessons.length === 0) {
-      console.log("creating lessons object");
-      const dataPath = process.env.PUBLIC_URL.concat("/data/");
-
-      axios
-        .get(dataPath.concat(planName))
-        .then((res) => setLessons(res.data.lessons))
-        .catch((err) => console.error(err));
-    }
-  }, [lessons, planName]);
-
-  function createLessonCard({ id, name, text }) {
+export default function LessonCards({ planName, lessons, setTypeMe }) {
+  function createLessonCard({ id, name }) {
     return (
       <Col id={id} xs="auto" sm="auto" md="auto" lg="auto" xl="auto" key={`${planName}-les-${id}`}>
         <Card
           className="text-center c-lessonCard"
-          onClick={(e) => console.log(lessons[getIdRec(e.target.parentNode)].text)}
+          onClick={(e) => {
+            setTypeMe(lessons[getIdRec(e.target.parentNode)].text);
+          }}
         >
           <Card.Header>{id + 1}</Card.Header>
           <Card.Body>
@@ -43,6 +29,9 @@ export default function LessonCards({ planName }) {
 
     return getIdRec(node.parentNode);
   }
-
-  return <Row className="c-lessonCardRow">{lessons.map((lesson) => createLessonCard(lesson))}</Row>;
+  return (
+    <>
+      <Row className="c-lessonCardRow">{lessons.map((lesson) => createLessonCard(lesson))}</Row>
+    </>
+  );
 }
