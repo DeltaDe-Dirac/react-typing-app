@@ -23,10 +23,8 @@ export default function App() {
   const [typeMe, setTypeMe] = useState(null);
 
   useEffect(() => {
-    console.log("app auth check");
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
-        console.log("app going to setIsLoggedIn(true)");
         setIsLoggedIn(true);
         setIsSignOut(false);
       }
@@ -34,7 +32,6 @@ export default function App() {
   }, [firebase]);
 
   useEffect(() => {
-    console.log("app want to sign out");
     if (isSignOut) {
       firebase
         .auth()
@@ -42,7 +39,6 @@ export default function App() {
         .then(() => {
           setIsLoggedIn(false);
           setIsSignOut(false);
-          console.log("signed out");
         })
         .catch((error) => {
           console.error(error.code, "|", error.message);
@@ -52,7 +48,6 @@ export default function App() {
 
   useEffect(() => {
     if (planName) {
-      console.log("creating lessons object");
       const dataPath = process.env.PUBLIC_URL.concat("/data/");
 
       axios
@@ -86,15 +81,6 @@ export default function App() {
               setTypeMe={setTypeMe}
             />
           </Route>
-          {/* <Route exact path="/portal/games/:num">
-            <PortalPage
-              isLoggedIn={isLoggedIn}
-              setIsLoggedIn={setIsLoggedIn}
-              isSignOut={isSignOut}
-              setIsSignOut={setIsSignOut}
-              jsonPlans={jsonPlans}
-            />
-          </Route> */}
           <Route exact path="/play">
             <>{typeMe}</>
           </Route>

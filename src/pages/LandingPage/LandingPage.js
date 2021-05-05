@@ -34,7 +34,6 @@ export default function LandingPage({ isLoggedIn, setIsLoggedIn }) {
     }
 
     return () => {
-      console.log("landing page cleanup");
       if (typeWord !== null) {
         clearTimeout(typeWord);
       }

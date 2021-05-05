@@ -35,7 +35,6 @@ export default function PortalPage({
   }, [planArg, jsonPlans, setPlanName]);
 
   if (isSignOut) {
-    console.log("back to home");
     return <Redirect push to="/" />;
   } else if (pageNotFound) {
     return <Redirect to="/notfound" />;
