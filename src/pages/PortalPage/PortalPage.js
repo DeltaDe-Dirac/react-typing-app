@@ -1,7 +1,6 @@
 import { useState } from "react";
 import "./PortalPage.css";
 
-import { Container } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import PortalNavBar from "../../components/PortalNavBar/PortalNavBar";
 import AuthModal from "../../components/AuthModal/AuthModal";
@@ -18,10 +17,10 @@ export default function PortalPage({ isLoggedIn, setIsLoggedIn, isSignOut, setIs
   return (
     <>
       <PortalNavBar isLoggedIn={isLoggedIn} setIsSignOut={setIsSignOut} setShowAuth={setShowAuth} />
-      <Container fluid="lg" className="p-portalPage">
+      <div fluid="lg" className="p-portalPage">
         <h1>{isLoggedIn ? "Hello logged in user" : "Hello anonymous user"}</h1>
         <GamePage />
-      </Container>
+      </div>
       <AuthModal
         show={showAuth}
         setHide={() => setShowAuth(false)}

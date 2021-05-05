@@ -3,6 +3,7 @@ import { Redirect, useParams } from "react-router";
 import PlanCards from "../../components/PlanCards/PlanCards";
 import LessonCards from "../../components/LessonCards/LessonCards";
 import jsonPlans from "./available-plans.json";
+import { Container } from "react-bootstrap";
 
 export default function GamePage() {
   const { num } = useParams();
@@ -12,5 +13,17 @@ export default function GamePage() {
     return <Redirect to="/notfound" />;
   }
 
-  return <>{!num ? <PlanCards jsonPlans={jsonPlans} /> : <LessonCards planName={jsonPlans[num].filename} />}</>;
+  return (
+    <>
+      {!num ? (
+        <Container>
+          <PlanCards jsonPlans={jsonPlans} />
+        </Container>
+      ) : (
+        <Container>
+          <LessonCards planName={jsonPlans[num].filename} />
+        </Container>
+      )}
+    </>
+  );
 }
