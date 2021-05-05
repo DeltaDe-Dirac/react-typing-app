@@ -13,6 +13,7 @@ import "firebase/analytics";
 import "firebase/auth";
 
 import jsonPlans from "./available-plans.json";
+import TypingPage from "./pages/TypingPage/TypingPage";
 
 export default function App() {
   const firebase = useContext(FirebaseContext);
@@ -82,7 +83,9 @@ export default function App() {
             />
           </Route>
           <Route exact path="/play">
-            <>{typeMe}</>
+            <>
+              <TypingPage typeMe={typeMe} />
+            </>
           </Route>
           <Route path="/construction">
             <PageNotFound

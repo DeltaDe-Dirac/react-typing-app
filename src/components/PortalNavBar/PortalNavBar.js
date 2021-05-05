@@ -16,7 +16,7 @@ export default function PortalNavBar({ isLoggedIn, setIsSignOut, setShowAuth }) 
 
   return (
     <div className="c-portalNavBarWrapper">
-      <Navbar bg="dark" variant="dark" expand="lg" className="c-portalNavBar">
+      <Navbar collapseOnSelect bg="dark" variant="dark" expand="lg" className="c-portalNavBar">
         <Container fluid="lg">
           <Navbar.Brand href="#/">TypeMe</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
