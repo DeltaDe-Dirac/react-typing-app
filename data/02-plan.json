@@ -1,9 +1,6 @@
 {
-  "name": "Random Fun Facts",
-  "img": "02-plan.jpg",
   "available_plan": 1,
   "file": "02-plan.json",
-  "link": "games",
   "lessons": [
     {
       "id": 0,

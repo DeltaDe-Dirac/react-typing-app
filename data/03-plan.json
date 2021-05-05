@@ -1,9 +1,6 @@
 {
-  "name": "Interesting Facts",
-  "img": "03-plan.jpg",
   "available_plan": 2,
   "file": "03-plan.json",
-  "link": "games",
   "lessons": [
     {
       "id": 0,

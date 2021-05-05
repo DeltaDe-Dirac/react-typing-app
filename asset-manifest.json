@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/react-typing-app/static/css/main.3a5037de.chunk.css",
-    "main.js": "/react-typing-app/static/js/main.b55e25b2.chunk.js",
-    "main.js.map": "/react-typing-app/static/js/main.b55e25b2.chunk.js.map",
+    "main.css": "/react-typing-app/static/css/main.1a84ad5c.chunk.css",
+    "main.js": "/react-typing-app/static/js/main.271efa9a.chunk.js",
+    "main.js.map": "/react-typing-app/static/js/main.271efa9a.chunk.js.map",
     "runtime-main.js": "/react-typing-app/static/js/runtime-main.85690fab.js",
     "runtime-main.js.map": "/react-typing-app/static/js/runtime-main.85690fab.js.map",
     "static/css/2.4c97ca4f.chunk.css": "/react-typing-app/static/css/2.4c97ca4f.chunk.css",
-    "static/js/2.4ade1bc8.chunk.js": "/react-typing-app/static/js/2.4ade1bc8.chunk.js",
-    "static/js/2.4ade1bc8.chunk.js.map": "/react-typing-app/static/js/2.4ade1bc8.chunk.js.map",
+    "static/js/2.0d709bbe.chunk.js": "/react-typing-app/static/js/2.0d709bbe.chunk.js",
+    "static/js/2.0d709bbe.chunk.js.map": "/react-typing-app/static/js/2.0d709bbe.chunk.js.map",
     "static/js/3.1ea8240d.chunk.js": "/react-typing-app/static/js/3.1ea8240d.chunk.js",
     "static/js/3.1ea8240d.chunk.js.map": "/react-typing-app/static/js/3.1ea8240d.chunk.js.map",
     "index.html": "/react-typing-app/index.html",
     "static/css/2.4c97ca4f.chunk.css.map": "/react-typing-app/static/css/2.4c97ca4f.chunk.css.map",
-    "static/css/main.3a5037de.chunk.css.map": "/react-typing-app/static/css/main.3a5037de.chunk.css.map",
-    "static/js/2.4ade1bc8.chunk.js.LICENSE.txt": "/react-typing-app/static/js/2.4ade1bc8.chunk.js.LICENSE.txt",
+    "static/css/main.1a84ad5c.chunk.css.map": "/react-typing-app/static/css/main.1a84ad5c.chunk.css.map",
+    "static/js/2.0d709bbe.chunk.js.LICENSE.txt": "/react-typing-app/static/js/2.0d709bbe.chunk.js.LICENSE.txt",
     "static/media/LandingPage.css": "/react-typing-app/static/media/pexels-sathesh.462a4d04.jpg",
     "static/media/AuthModal.css": "/react-typing-app/static/media/pexels-sebastiaan-stam-cropped.833a2e41.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.85690fab.js",
     "static/css/2.4c97ca4f.chunk.css",
-    "static/js/2.4ade1bc8.chunk.js",
-    "static/css/main.3a5037de.chunk.css",
-    "static/js/main.b55e25b2.chunk.js"
+    "static/js/2.0d709bbe.chunk.js",
+    "static/css/main.1a84ad5c.chunk.css",
+    "static/js/main.271efa9a.chunk.js"
   ]
 }
