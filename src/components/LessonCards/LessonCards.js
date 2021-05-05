@@ -3,36 +3,32 @@ import "./LessonCards.css";
 
 import { Card, Col, Row } from "react-bootstrap";
 import axios from "axios";
-import plans from "../../pages/GamePage/available-plans.json";
 
-export default function LessonCards({ planIndex }) {
-  const [cards, setCards] = useState(null);
+export default function LessonCards({ planName }) {
+  const [lessons, setLessons] = useState([]);
 
   useEffect(() => {
-    if (cards === null) {
-      console.log("lessonCard adding cards");
+    if (lessons.length === 0) {
+      console.log("creating lessons object");
       const dataPath = process.env.PUBLIC_URL.concat("/data/");
-      const cardsArr = [];
 
       axios
-        .get(dataPath.concat(plans[planIndex]))
-        .then((res) =>
-          res.data.lessons.forEach((lesson) => {
-            cardsArr.push(createLessonCard(lesson.id, lesson.id + 1, lesson.name));
-            setCards([...cardsArr]);
-          })
-        )
+        .get(dataPath.concat(planName))
+        .then((res) => setLessons(res.data.lessons))
         .catch((err) => console.error(err));
     }
-  }, [cards, planIndex]);
+  }, [lessons, planName]);
 
-  function createLessonCard(key, num, title) {
+  function createLessonCard({ id, name, text }) {
     return (
-      <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" key={`pl-${planIndex}-les-${key}`}>
-        <Card className="text-center c-lessonCard">
-          <Card.Header>{num}</Card.Header>
+      <Col id={id} xs="auto" sm="auto" md="auto" lg="auto" xl="auto" key={`${planName}-les-${id}`}>
+        <Card
+          className="text-center c-lessonCard"
+          onClick={(e) => console.log(lessons[getIdRec(e.target.parentNode)].text)}
+        >
+          <Card.Header>{id + 1}</Card.Header>
           <Card.Body>
-            <Card.Title>{title}</Card.Title>
+            <Card.Title>{name}</Card.Title>
           </Card.Body>
           <Card.Footer className="text-muted">footer text</Card.Footer>
         </Card>
@@ -40,5 +36,13 @@ export default function LessonCards({ planIndex }) {
     );
   }
 
-  return <Row className="c-lessonCardRow">{cards}</Row>;
+  function getIdRec(node) {
+    if (node && node.id) {
+      return node.id;
+    }
+
+    return getIdRec(node.parentNode);
+  }
+
+  return <Row className="c-lessonCardRow">{lessons.map((lesson) => createLessonCard(lesson))}</Row>;
 }
