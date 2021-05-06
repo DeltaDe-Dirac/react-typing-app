@@ -8,7 +8,26 @@
   overflow: hidden;
 }
 
-.c-typingPageWrap .nav {
-  justify-content: flex-end;
-  align-items: baseline;
+.c-typingPageWrap .nav-tabs {
+  border-bottom: none;
+}
+
+.c-typingPageWrap .nav-tabs .nav-item.show .nav-link,
+.c-typingPageWrap .nav-tabs .nav-link.active {
+  /* color: #495057; */
+  background-color: initial;
+}
+
+.c-typingPageWrap .nav-tabs .nav-link:focus {
+  /* border-color: pink; */
+  /* border: none; */
+}
+
+.c-typingPageWrap .nav-tabs .nav-link:hover {
+  /* border: none; */
+}
+
+.floatMenu {
+  position: absolute;
+  right: 0px;
 }

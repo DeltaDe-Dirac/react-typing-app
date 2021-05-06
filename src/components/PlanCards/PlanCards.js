@@ -1,8 +1,9 @@
 import "./PlanCards.css";
 import { Card, Col, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useRouteMatch } from "react-router-dom";
 
 export default function PlanCards({ jsonPlans }) {
+  const { url } = useRouteMatch();
   function createPlanCard({ filename, img, title, link }) {
     const imgPath = process.env.PUBLIC_URL.concat("/imgs/plans/");
 
@@ -15,7 +16,7 @@ export default function PlanCards({ jsonPlans }) {
             <Card.Text>
               Some quick example text to build on the card title and make up the bulk of the card's content.
             </Card.Text>
-            <Link to={`portal/${link}`} className="btn btn-outline-primary">
+            <Link to={`${url}/${link}`} className="btn btn-outline-primary">
               Start
             </Link>
           </Card.Body>

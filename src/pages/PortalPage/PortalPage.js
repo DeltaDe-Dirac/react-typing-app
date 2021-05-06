@@ -1,63 +1,74 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import "./PortalPage.css";
 
-import { Redirect, useParams } from "react-router-dom";
+import { Redirect, useParams, Switch, Route, useRouteMatch, HashRouter } from "react-router-dom";
+
 import PortalNavBar from "../../components/PortalNavBar/PortalNavBar";
 import AuthModal from "../../components/AuthModal/AuthModal";
 import { Container } from "react-bootstrap";
 import PlanCards from "../../components/PlanCards/PlanCards";
 import LessonCards from "../../components/LessonCards/LessonCards";
+import jsonPlans from "./available-plans.json";
+import axios from "axios";
+import TypingPage from "../TypingPage/TypingPage";
 
-export default function PortalPage({
-  isLoggedIn,
-  setIsLoggedIn,
-  isSignOut,
-  setIsSignOut,
-  jsonPlans,
-  planName,
-  setPlanName,
-  lessons,
-  typeMe,
-  setTypeMe,
-}) {
-  const { planArg } = useParams();
+export default function PortalPage({ isLoggedIn, setIsLoggedIn, isSignOut, setIsSignOut }) {
+  const { url, path } = useRouteMatch();
+  const { planArg, playArg } = useParams();
+  // console.log(useRouteMatch(), "planArg:", planArg, "playArg:", playArg);
+
   const [showAuth, setShowAuth] = useState(false);
-  const [pageNotFound, setPageNotFound] = useState(false);
+  const [lessons, setLessons] = useState(null);
+
+  const isValidPlanArgument = useCallback(() => {
+    return planArg && jsonPlans && jsonPlans.length > 0 && Number(planArg) < jsonPlans.length && jsonPlans[planArg];
+  }, [planArg]);
+
+  function isValidLessonArgument() {
+    return playArg && lessons && lessons.length > 0 && Number(playArg) < lessons.length && lessons[playArg];
+  }
 
   useEffect(() => {
-    if (planArg === undefined) {
-      setPlanName(null);
-    } else if (!jsonPlans || jsonPlans.length === 0 || planArg > jsonPlans.length - 1 || !jsonPlans[planArg]) {
-      setPageNotFound(true);
-    } else {
-      setPlanName(jsonPlans[planArg].filename);
+    if (isValidPlanArgument()) {
+      const dataPath = process.env.PUBLIC_URL.concat("/data/");
+
+      axios
+        .get(dataPath.concat(jsonPlans[planArg].filename))
+        .then((res) => setLessons(res.data.lessons))
+        .catch((err) => console.error(err));
     }
-  }, [planArg, jsonPlans, setPlanName]);
+  }, [planArg, isValidPlanArgument]);
 
   if (isSignOut) {
     return <Redirect push to="/" />;
-  } else if (pageNotFound) {
-    return <Redirect to="/notfound" />;
-  } else if (typeMe) {
-    return <Redirect push to="/play" />;
   }
 
   return (
     <>
-      <PortalNavBar
-        isLoggedIn={isLoggedIn}
-        setIsSignOut={setIsSignOut}
-        setShowAuth={setShowAuth}
-        setPlanName={setPlanName}
-      />
-      <Container className="p-portalPage">
-        <h1>{isLoggedIn ? "Hello logged in user" : "Hello anonymous user"}</h1>
-        {lessons ? (
-          <LessonCards planName={planName} lessons={lessons} setTypeMe={setTypeMe} />
-        ) : (
-          <PlanCards jsonPlans={jsonPlans} />
-        )}
-      </Container>
+      <HashRouter>
+        <Switch>
+          <Route exact path={`${path}/:planArg/:playArg`}>
+            <TypingPage typeMe={isValidLessonArgument() ? lessons[playArg].text : ""} />
+          </Route>
+          <Route exact path={`${path}/:planArg`}>
+            <PortalNavBar isLoggedIn={isLoggedIn} setIsSignOut={setIsSignOut} setShowAuth={setShowAuth} />
+            <Container className="p-portalPage">
+              <h1>{isLoggedIn ? "Hello logged in user" : "Hello anonymous user"}</h1>
+              <LessonCards
+                planName={isValidPlanArgument() ? jsonPlans[planArg].filename : ""}
+                lessons={lessons ? lessons : []}
+              />
+            </Container>
+          </Route>
+          <Route exact path={`${url}`}>
+            <PortalNavBar isLoggedIn={isLoggedIn} setIsSignOut={setIsSignOut} setShowAuth={setShowAuth} />
+            <Container className="p-portalPage">
+              <h1>{isLoggedIn ? "Hello logged in user" : "Hello anonymous user"}</h1>
+              <PlanCards jsonPlans={jsonPlans} />
+            </Container>
+          </Route>
+        </Switch>
+      </HashRouter>
       <AuthModal
         show={showAuth}
         setHide={() => setShowAuth(false)}

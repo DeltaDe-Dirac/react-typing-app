@@ -41,7 +41,7 @@ export default function LandingPage({ isLoggedIn, setIsLoggedIn }) {
   }, [headerText]);
 
   if (isLoggedIn && showAuth) {
-    return <Redirect push to="/portal" />;
+    return <Redirect push to="/portal/plans" />;
   }
 
   return (
@@ -60,7 +60,7 @@ export default function LandingPage({ isLoggedIn, setIsLoggedIn }) {
                 {headerText.text}
                 <span className={cursorColor ? "strong" : "weak"}>_</span>
               </h1>
-              <Link to="/portal" className="btn btn-outline-success">
+              <Link to="/portal/plans" className="btn btn-outline-success">
                 Get Started
               </Link>
             </div>

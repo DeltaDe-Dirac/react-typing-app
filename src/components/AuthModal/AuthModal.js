@@ -33,7 +33,7 @@ export default function AuthModal({ show, setHide, isLoggedIn, setIsLoggedIn }) 
           />
         </Modal.Body>
         <Modal.Footer>
-          <Link to="#" onClick={() => alert("Sign in with Google")}>
+          <Link to="#" onClick={() => alert("Feature under construction")}>
             Sign in with Google
           </Link>
           <Button variant="secondary" onClick={setHide}>
