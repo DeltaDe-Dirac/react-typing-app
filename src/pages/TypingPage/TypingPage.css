@@ -1,4 +1,4 @@
-.c-typingPageWrap {
+.p-typingPageWrap {
   background: url("./fantasy-1920.jpg") no-repeat fixed center;
   background-size: cover;
   height: 100vh;
@@ -6,28 +6,4 @@
   min-width: 300px;
   color: azure;
   overflow: hidden;
-}
-
-.c-typingPageWrap .nav-tabs {
-  border-bottom: none;
-}
-
-.c-typingPageWrap .nav-tabs .nav-item.show .nav-link,
-.c-typingPageWrap .nav-tabs .nav-link.active {
-  /* color: #495057; */
-  background-color: initial;
-}
-
-.c-typingPageWrap .nav-tabs .nav-link:focus {
-  /* border-color: pink; */
-  /* border: none; */
-}
-
-.c-typingPageWrap .nav-tabs .nav-link:hover {
-  /* border: none; */
-}
-
-.floatMenu {
-  position: absolute;
-  right: 0px;
 }

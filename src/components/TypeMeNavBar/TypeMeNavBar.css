@@ -1,0 +1,23 @@
+.c-typemeNavBarWrap .nav-tabs {
+  border-bottom: none;
+}
+
+.c-typemeNavBarWrap .nav-tabs .nav-item.show .nav-link,
+.c-typemeNavBarWrap .nav-tabs .nav-link.active {
+  /* color: #495057; */
+  background-color: initial;
+}
+
+.c-typemeNavBarWrap .nav-tabs .nav-link:focus {
+  /* border-color: pink; */
+  /* border: none; */
+}
+
+.c-typemeNavBarWrap .nav-tabs .nav-link:hover {
+  /* border: none; */
+}
+
+.floatMenu {
+  position: absolute;
+  right: 0px;
+}
