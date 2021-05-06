@@ -1,6 +1,7 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
 import "./TypingPage.css";
 import { useHistory } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function TypingPage({ typeMe }) {
   const hist = useHistory();
@@ -12,8 +13,9 @@ export default function TypingPage({ typeMe }) {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav>
             <Nav.Link href="#" onClick={() => hist.goBack()}>
-              Back
+              <FontAwesomeIcon className="fa-icon" icon="arrow-alt-circle-left" />
             </Nav.Link>
+
             <Navbar.Brand>Lesson 223: Human Body</Navbar.Brand>
           </Nav>
         </Navbar.Collapse>
