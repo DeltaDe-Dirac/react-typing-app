@@ -8,16 +8,43 @@
   background-color: initial;
 }
 
-.c-typemeNavBarWrap .nav-tabs .nav-link:focus {
-  /* border-color: pink; */
-  /* border: none; */
+.c-typemeNavBarWrap .nav-tabs .nav-link:focus,
+.c-typemeNavBarWrap .nav-tabs .nav-link:active,
+.c-typemeNavBarWrap .nav-tabs .nav-item.show .nav-link,
+.c-typemeNavBarWrap .nav-tabs .nav-link.active {
+  border-color: pink;
 }
 
-.c-typemeNavBarWrap .nav-tabs .nav-link:hover {
-  /* border: none; */
+.c-typemeNavBarWrap .nav-tabs .nav-link:not(.active):hover,
+.c-typemeNavBarWrap .nav-tabs .nav-link:not(.active) {
+  border: 1px solid transparent;
 }
 
-.floatMenu {
+.c-typemeNavBarWrap .floatMenu {
   position: absolute;
   right: 0px;
+}
+
+.c-typemeNavBarWrap .floatMenu .form-switch > .form-check-label {
+  padding-right: 100px;
+}
+
+.c-typemeNavBarWrap .floatMenu .form-switch {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 0;
+}
+
+.c-typemeNavBarWrap .floatMenu .form-switch .form-check-input {
+  position: unset;
+  float: none;
+}
+
+.c-typemeNavBarWrap .floatMenu {
+  display: none;
+}
+
+.c-typemeNavBarWrap .floatMenu.settings,
+.floatMenu.sound {
+  display: block;
 }
