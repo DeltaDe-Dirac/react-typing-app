@@ -20,6 +20,8 @@ export default function TypingPage({ typeMe }) {
           setHideMe(true);
         }
       }}
+      tabIndex="0"
+      onKeyDown={(e) => console.log(e.key)}
     >
       <TypeMeNavBar hideMe={hideMe} resetHideMe={() => setHideMe(false)} />
 

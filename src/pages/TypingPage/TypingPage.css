@@ -1,9 +1,14 @@
 .p-typingPageWrap {
-  background: url("./fantasy-1920.jpg") no-repeat fixed center;
+  background: url("./halloween-1920.jpg") no-repeat fixed center;
   background-size: cover;
   height: 100vh;
   min-height: 300px;
   min-width: 300px;
   color: azure;
   overflow: hidden;
+}
+
+.p-typingPageWrap h3 {
+  /* color: #416f7c; */
+  color: bisque;
 }
