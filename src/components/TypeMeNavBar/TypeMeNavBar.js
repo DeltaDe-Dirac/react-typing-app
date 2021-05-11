@@ -8,9 +8,15 @@ export default function TypeMeNavBar({ hideMe, resetHideMe }) {
   const hist = useHistory();
   const [floatMenu, toggleFloatMenu] = useState(null);
 
-  const handleSelect = (eventKey) => {
-    floatMenu && eventKey === floatMenu && !hideMe ? toggleFloatMenu(null) : toggleFloatMenu(eventKey);
-    resetHideMe();
+  const handleSelect = (eventKey, e) => {
+    // e.preventDefault();
+    // e.stopPropagation();
+    if (e.type === "click") {
+      floatMenu && eventKey === floatMenu && !hideMe ? toggleFloatMenu(null) : toggleFloatMenu(eventKey);
+      resetHideMe();
+    }
+    // console.log(e);
+    // console.log(eventKey);
   };
 
   const handleHide = (e) => {
@@ -18,6 +24,14 @@ export default function TypeMeNavBar({ hideMe, resetHideMe }) {
       toggleFloatMenu(null);
       resetHideMe();
     }
+    // console.log(e);
+  };
+
+  const handleGoBack = (e) => {
+    if (e.type === "click") {
+      hist.goBack();
+    }
+    // console.log(e);
   };
 
   return (
@@ -27,14 +41,14 @@ export default function TypeMeNavBar({ hideMe, resetHideMe }) {
 
         <Navbar.Collapse id="responsive-navbar-nav" onClick={(e) => handleHide(e)}>
           <Nav>
-            <Nav.Link href="#" onClick={() => hist.goBack()}>
+            <Nav.Link href="#" onClick={(e) => handleGoBack(e)}>
               <FontAwesomeIcon icon={["fa", "arrow-alt-circle-left"]} />
             </Nav.Link>
 
             <Navbar.Brand>Lesson 223: Human Body</Navbar.Brand>
           </Nav>
         </Navbar.Collapse>
-        <Nav variant="tabs" defaultActiveKey="/home" onSelect={(eventKey) => handleSelect(eventKey)}>
+        <Nav variant="tabs" defaultActiveKey="/home" onSelect={(eventKey, e) => handleSelect(eventKey, e)}>
           <Nav.Item>
             <Nav.Link href="#" eventKey="restart" active={false}>
               <FontAwesomeIcon icon={["fas", "undo"]} />
