@@ -4,6 +4,7 @@ import "./TypingPage.css";
 import { Container } from "react-bootstrap";
 import TypeMeNavBar from "../../components/TypeMeNavBar/TypeMeNavBar";
 import Word from "../../components/Word/Word";
+import { isBackSpace, isAlphanumeric } from "../../utils/keycodes";
 
 export default function TypingPage({ typeMe }) {
   const nodeNames = ["path", "A", "svg", "INPUT", "LABEL", "HR"];
@@ -38,8 +39,8 @@ export default function TypingPage({ typeMe }) {
 
   function handleTypingKey(e) {
     // console.log(letterMarks);
-    // console.log(wordsArr[wordIndex][letterIndex], letterIndex, e.key, e.key.charCodeAt(0));
-    if (e.key.charCodeAt(0) > 31 && e.key.charCodeAt(0) < 127) {
+    // console.log("expected:", wordsArr()[wordIndex][letterIndex], "typed", e.key, e.keyCode, e);
+    if (isAlphanumeric(e.keyCode)) {
       if (wordsArr()[wordIndex][letterIndex] === e.key) {
         // console.log("correct");
         letterMarks[wordIndex][letterIndex] = {
