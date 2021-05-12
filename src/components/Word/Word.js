@@ -11,10 +11,10 @@ export default function Word({ word, wordNum, letterMarks }) {
           !letterMarks
             ? "letterSpan "
             : "letterSpan "
-                .concat(letterMarks[i].isClean ? "_clean" : "")
-                .concat(letterMarks[i].isCorrect ? "_correct" : "")
-                .concat(letterMarks[i].isError ? "_error" : "")
-                .concat(letterMarks[i].isFixed ? "_fixed" : "")
+                .concat(letterMarks[i].isClean ? "_clean " : "")
+                .concat(letterMarks[i].isCorrect ? "_correct " : "")
+                .concat(letterMarks[i].isError ? "_error " : "")
+                .concat(letterMarks[i].isFixed ? "_fixed " : "")
         }
       >
         {word[i]}

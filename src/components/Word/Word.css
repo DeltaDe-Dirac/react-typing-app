@@ -1,5 +1,4 @@
 .letterSpan {
-  /* border: solid floralwhite; */
   border: solid black;
   border-radius: 5px;
   width: 30px;
@@ -36,5 +35,6 @@
 
 .wordsSpan > .letterSpan._clean {
   background-color: rgb(35, 47, 56);
+  color: aliceblue;
   opacity: 0.7;
 }

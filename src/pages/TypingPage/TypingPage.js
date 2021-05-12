@@ -38,35 +38,75 @@ export default function TypingPage({ typeMe }) {
   }, [typingRef]);
 
   function handleTypingKey(e) {
-    // console.log(letterMarks);
-    // console.log("expected:", wordsArr()[wordIndex][letterIndex], "typed", e.key, e.keyCode, e);
     if (isAlphanumeric(e.keyCode)) {
       if (wordsArr()[wordIndex][letterIndex] === e.key) {
-        // console.log("correct");
-        letterMarks[wordIndex][letterIndex] = {
-          isClean: false,
-          isCorrect: true,
-          isFixed: false,
-          isError: false,
-        };
-        setLetterMarks([...letterMarks]);
+        const letterMark = letterMarks[wordIndex][letterIndex];
+
+        if (!letterMark.isCorrect && !letterMark.isFixed && !letterMark.isError) {
+          letterMarks[wordIndex][letterIndex] = {
+            isClean: false,
+            isCorrect: true,
+            isFixed: false,
+            isError: false,
+          };
+        } else if (letterMark.isError || letterMark.isFixed) {
+          letterMarks[wordIndex][letterIndex] = {
+            isClean: false,
+            isCorrect: false,
+            isFixed: true,
+            isError: false,
+          };
+        }
       } else {
-        // console.log("incorrect");
         letterMarks[wordIndex][letterIndex] = {
           isClean: false,
           isCorrect: false,
           isFixed: false,
           isError: true,
         };
-        setLetterMarks([...letterMarks]);
       }
+      setLetterMarks([...letterMarks]);
+      handleIncrement();
+    } else if (isBackSpace(e.keyCode)) {
+      handleDecrement();
+    }
+  }
 
-      setLetterIndex(letterIndex + 1);
+  function handleIncrement() {
+    if (letterIndex + 1 === wordsArr()[wordIndex].length) {
+      setLetterIndex(0);
 
-      if (letterIndex + 1 === wordsArr()[wordIndex].length) {
-        setLetterIndex(0);
+      if (wordIndex + 1 === wordsArr().length) {
+        // stop the lesson here
+      } else {
         setWordIndex(wordIndex + 1);
       }
+    } else {
+      setLetterIndex(letterIndex + 1);
+    }
+  }
+
+  function handleDecrement() {
+    if (letterIndex === 0) {
+      if (wordIndex === 0) {
+        // do nothing - reached the beginning
+      } else {
+        const prevWordLastIndex = wordsArr()[wordIndex - 1].length - 1;
+        const curLetterMark = letterMarks[wordIndex - 1][prevWordLastIndex];
+        [curLetterMark.isClean, curLetterMark.isCorrect] = [true, false];
+        letterMarks[wordIndex - 1][prevWordLastIndex] = curLetterMark;
+
+        setLetterMarks([...letterMarks]);
+        setLetterIndex(prevWordLastIndex);
+        setWordIndex(wordIndex - 1);
+      }
+    } else {
+      const curLetterMark = letterMarks[wordIndex][letterIndex - 1];
+      [curLetterMark.isClean, curLetterMark.isCorrect] = [true, false];
+      letterMarks[wordIndex][letterIndex - 1] = curLetterMark;
+
+      setLetterMarks([...letterMarks]);
+      setLetterIndex(letterIndex - 1);
     }
   }
 
