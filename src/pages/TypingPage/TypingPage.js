@@ -6,7 +6,16 @@ import TypeMeNavBar from "../../components/TypeMeNavBar/TypeMeNavBar";
 import Word from "../../components/Word/Word";
 import { isBackSpace, isAlphanumeric } from "../../utils/keycodes";
 
+import useSound from "use-sound";
+import rightPress from "./sounds/rightPress.mp3";
+import wrongPress from "./sounds/wrongPress.mp3";
+import endLesson from "./sounds/endLesson.mp3";
+
 export default function TypingPage({ typeMe }) {
+  const [correctType] = useSound(rightPress);
+  const [misType] = useSound(wrongPress);
+  const [finishLesson] = useSound(endLesson);
+
   const nodeNames = ["path", "A", "svg", "INPUT", "LABEL", "HR"];
   const [hideMe, setHideMe] = useState(false);
   const [letterIndex, setLetterIndex] = useState(0);
@@ -15,7 +24,13 @@ export default function TypingPage({ typeMe }) {
   const [letterMarks, setLetterMarks] = useState([]);
 
   const wordsArr = useCallback(() => {
-    return typeMe ? typeMe.split(/\s+/g).map((word) => word.concat(" ")) : null;
+    const typeWords = typeMe ? typeMe.split(/\s+/g).map((word) => word.concat(" ")) : null;
+
+    if (typeWords) {
+      typeWords[typeWords.length - 1] = typeWords[typeWords.length - 1].trim();
+    }
+
+    return typeWords;
   }, [typeMe]);
 
   useEffect(() => {
@@ -40,6 +55,7 @@ export default function TypingPage({ typeMe }) {
   function handleTypingKey(e) {
     if (isAlphanumeric(e.keyCode)) {
       if (wordsArr()[wordIndex][letterIndex] === e.key) {
+        correctType();
         const letterMark = letterMarks[wordIndex][letterIndex];
 
         if (!letterMark.isCorrect && !letterMark.isFixed && !letterMark.isError) {
@@ -58,6 +74,7 @@ export default function TypingPage({ typeMe }) {
           };
         }
       } else {
+        misType();
         letterMarks[wordIndex][letterIndex] = {
           isClean: false,
           isCorrect: false,
@@ -68,6 +85,7 @@ export default function TypingPage({ typeMe }) {
       setLetterMarks([...letterMarks]);
       handleIncrement();
     } else if (isBackSpace(e.keyCode)) {
+      correctType();
       handleDecrement();
     }
   }
@@ -78,6 +96,7 @@ export default function TypingPage({ typeMe }) {
 
       if (wordIndex + 1 === wordsArr().length) {
         // stop the lesson here
+        finishLesson();
       } else {
         setWordIndex(wordIndex + 1);
       }
