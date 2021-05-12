@@ -48,7 +48,7 @@ export default function PortalPage({ isLoggedIn, setIsLoggedIn, isSignOut, setIs
       <HashRouter>
         <Switch>
           <Route exact path={`${path}/:planArg/:playArg`}>
-            <TypingPage typeMe={isValidLessonArgument() ? lessons[playArg].text : ""} />
+            <TypingPage typeMe={isValidLessonArgument() ? lessons[playArg].text : null} />
           </Route>
           <Route exact path={`${path}/:planArg`}>
             <PortalNavBar isLoggedIn={isLoggedIn} setIsSignOut={setIsSignOut} setShowAuth={setShowAuth} />

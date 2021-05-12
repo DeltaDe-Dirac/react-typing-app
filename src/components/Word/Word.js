@@ -1,10 +1,26 @@
-import React from "react";
 import "./Word.css";
 
-export default function Word({ word, wordNum }) {
-  const spanLetters = Array(word.length + 1).fill(" ");
+export default function Word({ word, wordNum, letterMarks }) {
+  const spanLetters = new Array(word.length);
+
   for (let i = 0; i < word.length; ++i) {
-    spanLetters[i] = <span key={`w-${wordNum}-letter-${i}`}>{word[i]}</span>;
+    spanLetters[i] = (
+      <span
+        key={`w-${wordNum}-letter-${i}`}
+        className={
+          !letterMarks
+            ? "letterSpan "
+            : "letterSpan "
+                .concat(letterMarks[i].isClean ? "_clean" : "")
+                .concat(letterMarks[i].isCorrect ? "_correct" : "")
+                .concat(letterMarks[i].isError ? "_error" : "")
+                .concat(letterMarks[i].isFixed ? "_fixed" : "")
+        }
+      >
+        {word[i]}
+      </span>
+    );
   }
-  return <span>{spanLetters}</span>;
+
+  return <span className="wordsSpan">{spanLetters}</span>;
 }

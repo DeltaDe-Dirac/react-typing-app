@@ -1,0 +1,40 @@
+.letterSpan {
+  /* border: solid floralwhite; */
+  border: solid black;
+  border-radius: 5px;
+  width: 30px;
+  min-width: 30px;
+  line-height: 1.5em;
+  margin: 2px 2px;
+  font-size: 2em;
+  text-align: center;
+  display: inline-block;
+  white-space: pre;
+}
+
+.wordsSpan {
+  white-space: nowrap;
+}
+
+.wordsSpan > .letterSpan._correct {
+  background-color: lightgreen;
+  opacity: 0.7;
+  color: black;
+}
+
+.wordsSpan > .letterSpan._error {
+  background-color: lightpink;
+  opacity: 0.7;
+  color: black;
+}
+
+.wordsSpan > .letterSpan._fixed {
+  background-color: gold;
+  opacity: 0.7;
+  color: black;
+}
+
+.wordsSpan > .letterSpan._clean {
+  background-color: rgb(35, 47, 56);
+  opacity: 0.7;
+}
