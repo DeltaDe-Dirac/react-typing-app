@@ -92,12 +92,12 @@ export default function TypingPage({ typeMe }) {
 
   function handleIncrement() {
     if (letterIndex + 1 === wordsArr()[wordIndex].length) {
-      setLetterIndex(0);
-
       if (wordIndex + 1 === wordsArr().length) {
         // stop the lesson here
         finishLesson();
+        setLetterIndex(letterIndex + 1);
       } else {
+        setLetterIndex(0);
         setWordIndex(wordIndex + 1);
       }
     } else {
