@@ -22,7 +22,9 @@
 
 .c-typemeNavBarWrap .floatMenu {
   position: absolute;
+  display: none;
   right: 0px;
+  z-index: 10;
 }
 
 .c-typemeNavBarWrap .floatMenu .form-switch > .form-check-label {
@@ -38,10 +40,6 @@
 .c-typemeNavBarWrap .floatMenu .form-switch .form-check-input {
   position: unset;
   float: none;
-}
-
-.c-typemeNavBarWrap .floatMenu {
-  display: none;
 }
 
 .c-typemeNavBarWrap .floatMenu.settings,
