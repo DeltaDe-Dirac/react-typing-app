@@ -9,11 +9,13 @@ export default function TypeMeNavBar({ hideMe, resetHideMe }) {
   const hist = useHistory();
   const [floatMenu, toggleFloatMenu] = useState(null);
   const [keyEvent, setKeyEvent] = useState(null);
-  // console.log(keyEvent);
 
   const handleSelect = (eventKey, e) => {
     if (e.type === "click" && !isBlockedKey()) {
       floatMenu && eventKey === floatMenu && !hideMe ? toggleFloatMenu(null) : toggleFloatMenu(eventKey);
+      if (eventKey === "restart") {
+        hist.go(0);
+      }
       resetHideMe();
     }
     setKeyEvent(null);
