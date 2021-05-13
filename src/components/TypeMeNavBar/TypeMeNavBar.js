@@ -44,7 +44,7 @@ export default function TypeMeNavBar({ hideMe, resetHideMe }) {
 
   return (
     <div className="c-typemeNavBarWrap">
-      <Navbar bg="dark" variant="dark">
+      <Navbar bg="dark" variant="dark" className="fixedMenu">
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
         <Navbar.Collapse id="responsive-navbar-nav" onClick={(e) => handleHide(e)}>

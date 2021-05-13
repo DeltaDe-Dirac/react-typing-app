@@ -13,6 +13,12 @@
 .c-typemeNavBarWrap .nav-tabs .nav-item.show .nav-link,
 .c-typemeNavBarWrap .nav-tabs .nav-link.active {
   border-color: pink;
+  border-bottom: 1px solid #343a40;
+}
+
+.c-typemeNavBarWrap .fixedMenu {
+  padding-bottom: 0px;
+  z-index: 2;
 }
 
 .c-typemeNavBarWrap .nav-tabs .nav-link:not(.active):hover,
@@ -23,8 +29,12 @@
 .c-typemeNavBarWrap .floatMenu {
   position: absolute;
   display: none;
-  right: 0px;
-  z-index: 10;
+  right: 16px;
+  top: 49px;
+  z-index: 1;
+  border: 1px solid pink;
+  border-top: 1px solid pink;
+  box-shadow: 0px 3px 10px 3px rgba(180, 86, 158, 0.47);
 }
 
 .c-typemeNavBarWrap .floatMenu .form-switch > .form-check-label {
