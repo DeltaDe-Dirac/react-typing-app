@@ -22,6 +22,13 @@ export default function TypingPage({ typeMe }) {
   const [wordIndex, setWordIndex] = useState(0);
   const typingRef = createRef();
   const [letterMarks, setLetterMarks] = useState([]);
+  const [settings, setSettings] = useState({
+    sound: true,
+    voice: true,
+    stats: true,
+    blockOnError: true,
+    error: 1,
+  });
 
   const wordsArr = useCallback(() => {
     const typeWords = typeMe ? typeMe.split(/\s+/g).map((word) => word.concat(" ")) : null;
@@ -133,6 +140,7 @@ export default function TypingPage({ typeMe }) {
     <div
       className="p-typingPageWrap"
       onClick={(e) => {
+        // console.log(e);
         if (
           !nodeNames.includes(e.target.nodeName) &&
           !(e.target.nodeName === "NAV" && e.target.classList.contains("floatMenu")) &&
@@ -145,10 +153,15 @@ export default function TypingPage({ typeMe }) {
       tabIndex="0"
       ref={typingRef}
     >
-      <TypeMeNavBar hideMe={hideMe} resetHideMe={() => setHideMe(false)} />
+      <TypeMeNavBar
+        hideMe={hideMe}
+        resetHideMe={() => setHideMe(false)}
+        settings={settings}
+        setSettings={setSettings}
+      />
 
-      <Container>
-        <div>
+      <Container className="typeMeContainer">
+        <div className="typeMeDiv">
           {wordsArr()
             ? wordsArr().map((word, index) => (
                 <Word key={`wordSpan-${index}`} word={word} wordNum={index} letterMarks={letterMarks[index]} />
