@@ -94,6 +94,17 @@ export default function TypeMeNavBar({ hideMe, resetHideMe }) {
             </label>
             <input className="form-check-input" type="checkbox" id="errors" tabIndex="-1"></input>
           </div>
+          <Nav fill variant="tabs" defaultActiveKey="error-1" className="blockOnError">
+            <Nav.Item>
+              <Nav.Link eventKey="error-1">1st</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="error-2">2nd</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="error-3">3rd</Nav.Link>
+            </Nav.Item>
+          </Nav>
         </Nav>
       </Navbar>
       <Navbar

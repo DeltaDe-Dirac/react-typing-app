@@ -1,31 +1,11 @@
-.c-typemeNavBarWrap .nav-tabs {
-  border-bottom: none;
-}
-
-.c-typemeNavBarWrap .nav-tabs .nav-item.show .nav-link,
-.c-typemeNavBarWrap .nav-tabs .nav-link.active {
-  /* color: #495057; */
-  background-color: initial;
-}
-
-.c-typemeNavBarWrap .nav-tabs .nav-link:focus,
-.c-typemeNavBarWrap .nav-tabs .nav-link:active,
-.c-typemeNavBarWrap .nav-tabs .nav-item.show .nav-link,
-.c-typemeNavBarWrap .nav-tabs .nav-link.active {
-  border-color: pink;
-  border-bottom: 1px solid #343a40;
-}
-
+/* MAIN FIXED NAVABAR */
 .c-typemeNavBarWrap .fixedMenu {
   padding-bottom: 0px;
   z-index: 2;
 }
+/* --------------------------------------------------------------------------- */
 
-.c-typemeNavBarWrap .nav-tabs .nav-link:not(.active):hover,
-.c-typemeNavBarWrap .nav-tabs .nav-link:not(.active) {
-  border: 1px solid transparent;
-}
-
+/* FLOATING NAVABAR */
 .c-typemeNavBarWrap .floatMenu {
   position: absolute;
   display: none;
@@ -37,6 +17,7 @@
   box-shadow: 0px 3px 10px 3px rgba(180, 86, 158, 0.47);
 }
 
+/* FLOATING NAVBAR SWITCHES */
 .c-typemeNavBarWrap .floatMenu .form-switch > .form-check-label {
   padding-right: 100px;
 }
@@ -51,6 +32,63 @@
   position: unset;
   float: none;
 }
+/* --------------------------------------------------------------------------- */
+
+/* NAVBAR NAVIGATION TABS */
+.c-typemeNavBarWrap .fixedMenu .nav-tabs .nav-link:focus,
+.c-typemeNavBarWrap .fixedMenu .nav-tabs .nav-link:active,
+.c-typemeNavBarWrap .fixedMenu .nav-tabs .nav-item.show .nav-link,
+.c-typemeNavBarWrap .fixedMenu .nav-tabs .nav-link.active {
+  border-color: pink;
+  border-bottom: 1px solid #343a40;
+}
+
+.c-typemeNavBarWrap .fixedMenu .nav-tabs .nav-link:not(.active):hover,
+.c-typemeNavBarWrap .fixedMenu .nav-tabs .nav-link:not(.active) {
+  border: 1px solid transparent;
+}
+/* --------------------------------------------------------------------------- */
+
+/* NAVIGATION TABS COMMON */
+
+.c-typemeNavBarWrap .nav-tabs {
+  border-bottom: none;
+}
+
+.c-typemeNavBarWrap .nav-tabs .nav-item.show .nav-link,
+.c-typemeNavBarWrap .nav-tabs .nav-link.active {
+  /* color: #495057; */
+  background-color: initial;
+}
+/* --------------------------------------------------------------------------- */
+
+/* NAVIGATION TABS ERROR */
+.c-typemeNavBarWrap .blockOnError.hide {
+  display: none;
+}
+
+.c-typemeNavBarWrap .blockOnError .nav-item {
+  margin: 0 7px;
+  font-size: 1.3em;
+  padding-bottom: 5px;
+}
+
+.c-typemeNavBarWrap .blockOnError.nav-tabs .nav-link:not(.active) {
+  border: 1px solid transparent;
+}
+
+.c-typemeNavBarWrap .blockOnError.nav-tabs .nav-link:not(.active):hover {
+  border-bottom: 1px solid pink;
+}
+
+.c-typemeNavBarWrap .blockOnError.nav-tabs .nav-link:focus,
+.c-typemeNavBarWrap .blockOnError.nav-tabs .nav-link:active,
+.c-typemeNavBarWrap .blockOnError.nav-tabs .nav-item.show .nav-link,
+.c-typemeNavBarWrap .blockOnError.nav-tabs .nav-link.active {
+  border: 1px solid #343a40;
+  border-bottom: 1px solid pink;
+}
+/* --------------------------------------------------------------------------- */
 
 .c-typemeNavBarWrap .floatMenu.settings,
 .floatMenu.sound {
