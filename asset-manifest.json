@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/react-typing-app/static/css/main.611d110a.chunk.css",
-    "main.js": "/react-typing-app/static/js/main.75fc35fb.chunk.js",
-    "main.js.map": "/react-typing-app/static/js/main.75fc35fb.chunk.js.map",
+    "main.css": "/react-typing-app/static/css/main.8623e311.chunk.css",
+    "main.js": "/react-typing-app/static/js/main.8e528804.chunk.js",
+    "main.js.map": "/react-typing-app/static/js/main.8e528804.chunk.js.map",
     "runtime-main.js": "/react-typing-app/static/js/runtime-main.29c06b07.js",
     "runtime-main.js.map": "/react-typing-app/static/js/runtime-main.29c06b07.js.map",
     "static/css/2.4c97ca4f.chunk.css": "/react-typing-app/static/css/2.4c97ca4f.chunk.css",
@@ -14,7 +14,7 @@
     "static/js/4.128b6aba.chunk.js.map": "/react-typing-app/static/js/4.128b6aba.chunk.js.map",
     "index.html": "/react-typing-app/index.html",
     "static/css/2.4c97ca4f.chunk.css.map": "/react-typing-app/static/css/2.4c97ca4f.chunk.css.map",
-    "static/css/main.611d110a.chunk.css.map": "/react-typing-app/static/css/main.611d110a.chunk.css.map",
+    "static/css/main.8623e311.chunk.css.map": "/react-typing-app/static/css/main.8623e311.chunk.css.map",
     "static/js/2.333d9abb.chunk.js.LICENSE.txt": "/react-typing-app/static/js/2.333d9abb.chunk.js.LICENSE.txt",
     "static/js/3.b5c67461.chunk.js.LICENSE.txt": "/react-typing-app/static/js/3.b5c67461.chunk.js.LICENSE.txt",
     "static/media/endLesson.66b57238.mp3": "/react-typing-app/static/media/endLesson.66b57238.mp3",
@@ -28,7 +28,7 @@
     "static/js/runtime-main.29c06b07.js",
     "static/css/2.4c97ca4f.chunk.css",
     "static/js/2.333d9abb.chunk.js",
-    "static/css/main.611d110a.chunk.css",
-    "static/js/main.75fc35fb.chunk.js"
+    "static/css/main.8623e311.chunk.css",
+    "static/js/main.8e528804.chunk.js"
   ]
 }
