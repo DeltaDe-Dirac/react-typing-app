@@ -29,7 +29,7 @@ export default function TypingPage({ typeMe }) {
     blockOnError: false,
     error: "error-1",
   });
-  const [errorCounter, setErrorCounter] = useState(1);
+  const [errorCounter, setErrorCounter] = useState(0);
 
   const wordsArr = useCallback(() => {
     const typeWords = typeMe ? typeMe.split(/\s+/g).map((word) => word.concat(" ")) : null;
@@ -63,58 +63,62 @@ export default function TypingPage({ typeMe }) {
   // if local settings exist set to state settings
   useEffect(() => {
     const localSettings = localStorage.getItem("settings");
-    // console.log("localSettings", localSettings);
 
     if (localSettings) {
       console.log("loaded settings from local storage");
       setSettings(JSON.parse(localSettings));
-      // setSettings({
-      //   sound: false,
-      //   voice: false,
-      //   stats: false,
-      //   blockOnError: false,
-      //   error: 1,
-      // });
     }
   }, []);
 
   // save settings to local storage on every update
   useEffect(() => {
     localStorage.setItem("settings", JSON.stringify(settings));
-    // console.log("localSettings updated", localStorage.getItem("settings"));
     if (!settings.blockOnError) {
-      setErrorCounter(1);
+      setErrorCounter(0);
     }
   }, [settings]);
 
   function handleTypingKey(e) {
+    let curErrorCounter = errorCounter;
     if (isAlphanumeric(e.keyCode)) {
       if (wordsArr()[wordIndex][letterIndex] === e.key) {
         playSound(correctType);
+
         if (settings.blockOnError) {
-          setErrorCounter(1);
+          curErrorCounter = 0;
+          setErrorCounter(curErrorCounter);
         }
-        handleMarkingAndIncrement(true);
+        handleMarkingAndIncrement(true, curErrorCounter);
       } else {
         playSound(misType);
-
-        if (settings.blockOnError && errorCounter < parseInt(settings.error.split("-")[1])) {
-          setErrorCounter(errorCounter + 1);
+        if (settings.blockOnError && curErrorCounter < parseInt(settings.error.split("-")[1])) {
+          curErrorCounter += 1;
+          setErrorCounter(curErrorCounter);
         }
 
-        handleMarkingAndIncrement(false);
+        handleMarkingAndIncrement(false, curErrorCounter);
       }
     } else if (isBackSpace(e.keyCode)) {
-      if (settings.blockOnError && errorCounter > 0) {
-        setErrorCounter(errorCounter - 1);
-      }
       playSound(correctType);
-      handleMarkingAndDecrement();
+      if (settings.blockOnError && curErrorCounter > 0) {
+        handleMarkingAndDecrementOnError(curErrorCounter);
+        curErrorCounter -= 1;
+        setErrorCounter(curErrorCounter);
+      } else {
+        handleMarkingAndDecrement();
+      }
     }
   }
 
-  function handleMarkingAndIncrement(isCorrectlyTyped) {
-    if (!isCorrectlyTyped && isBlockOnError()) {
+  function handleMarkingAndIncrement(isCorrectlyTyped, curErrorCounter) {
+    if (!isCorrectlyTyped && isBlockOnError(curErrorCounter)) {
+      letterMarks[wordIndex][letterIndex] = {
+        isClean: false,
+        isCorrect: false,
+        isFixed: false,
+        isError: true,
+      };
+      setLetterMarks([...letterMarks]);
       return;
     }
 
@@ -187,20 +191,41 @@ export default function TypingPage({ typeMe }) {
     }
   }
 
+  function handleMarkingAndDecrementOnError(curErrorCounter) {
+    let curLetterIndex = isBlockOnError(curErrorCounter) ? letterIndex : letterIndex - 1;
+    let curWordIndex = wordIndex;
+
+    if (curLetterIndex < 0) {
+      if (curWordIndex === 0) {
+        return;
+      } else {
+        curWordIndex -= 1;
+        curLetterIndex = wordsArr()[curWordIndex].length - 1;
+        setWordIndex(curWordIndex);
+      }
+    }
+
+    const curLetterMark = letterMarks[curWordIndex][curLetterIndex];
+    [curLetterMark.isClean, curLetterMark.isCorrect] = [true, false];
+    letterMarks[curWordIndex][curLetterIndex] = curLetterMark;
+
+    setLetterMarks([...letterMarks]);
+    setLetterIndex(curLetterIndex);
+  }
+
   function playSound(play) {
     if (settings.sound) {
       play();
     }
   }
 
-  function isBlockOnError() {
+  function isBlockOnError(curErrorCounter) {
     if (!settings.blockOnError) {
       return false;
     }
 
     const errorLimit = parseInt(settings.error.split("-")[1]);
-
-    return errorCounter === errorLimit;
+    return curErrorCounter === errorLimit;
   }
 
   return (
@@ -225,6 +250,8 @@ export default function TypingPage({ typeMe }) {
         resetHideMe={() => setHideMe(false)}
         settings={settings}
         setSettings={setSettings}
+        errorCounter={errorCounter}
+        setErrorCounter={setErrorCounter}
       />
 
       <Container className="typeMeContainer">

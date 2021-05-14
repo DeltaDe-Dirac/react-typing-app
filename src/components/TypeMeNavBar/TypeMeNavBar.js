@@ -5,7 +5,7 @@ import { Nav, Navbar } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function TypeMeNavBar({ hideMe, resetHideMe, settings, setSettings }) {
+export default function TypeMeNavBar({ hideMe, resetHideMe, settings, setSettings, errorCounter, setErrorCounter }) {
   const hist = useHistory();
   const keepActive = ["error-1", "error-2", "error-3"];
   const [floatMenu, toggleFloatMenu] = useState(null);
@@ -23,8 +23,14 @@ export default function TypeMeNavBar({ hideMe, resetHideMe, settings, setSetting
         hist.go(0);
       }
 
-      if (keepActive.includes(eventKey)) {
+      if (keepActive.includes(eventKey) && settings.error !== eventKey) {
         setSettings({ ...settings, error: eventKey });
+        const prevErrorLimit = parseInt(settings.error.split("-")[1]);
+        const newErrorLimit = parseInt(eventKey.split("-")[1]);
+
+        if (newErrorLimit < prevErrorLimit && errorCounter > newErrorLimit) {
+          setErrorCounter(newErrorLimit);
+        }
       }
       resetHideMe();
     }
