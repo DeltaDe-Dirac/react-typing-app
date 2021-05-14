@@ -86,7 +86,7 @@ export default function TypingPage({ typeMe }) {
   function handleTypingKey(e) {
     if (isAlphanumeric(e.keyCode)) {
       if (wordsArr()[wordIndex][letterIndex] === e.key) {
-        correctType();
+        playSound(correctType);
         const letterMark = letterMarks[wordIndex][letterIndex];
 
         if (!letterMark.isCorrect && !letterMark.isFixed && !letterMark.isError) {
@@ -105,7 +105,7 @@ export default function TypingPage({ typeMe }) {
           };
         }
       } else {
-        misType();
+        playSound(misType);
         letterMarks[wordIndex][letterIndex] = {
           isClean: false,
           isCorrect: false,
@@ -116,7 +116,7 @@ export default function TypingPage({ typeMe }) {
       setLetterMarks([...letterMarks]);
       handleIncrement();
     } else if (isBackSpace(e.keyCode)) {
-      correctType();
+      playSound(correctType);
       handleDecrement();
     }
   }
@@ -157,6 +157,12 @@ export default function TypingPage({ typeMe }) {
 
       setLetterMarks([...letterMarks]);
       setLetterIndex(letterIndex - 1);
+    }
+  }
+
+  function playSound(play) {
+    if (settings.sound) {
+      play();
     }
   }
 
