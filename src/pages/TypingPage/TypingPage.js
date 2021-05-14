@@ -26,7 +26,7 @@ export default function TypingPage({ typeMe }) {
     sound: true,
     voice: false,
     stats: true,
-    blockOnError: true,
+    blockOnError: false,
     error: "error-1",
   });
 
