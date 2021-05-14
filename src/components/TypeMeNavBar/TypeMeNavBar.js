@@ -10,7 +10,7 @@ export default function TypeMeNavBar({ hideMe, resetHideMe, settings, setSetting
   const keepActive = ["error-1", "error-2", "error-3"];
   const [floatMenu, toggleFloatMenu] = useState(null);
   const [keyEvent, setKeyEvent] = useState(null);
-
+  // console.log(settings);
   const handleSelect = (eventKey, e) => {
     // e.preventDefault();
     // console.log(e);
@@ -24,7 +24,7 @@ export default function TypeMeNavBar({ hideMe, resetHideMe, settings, setSetting
       }
 
       if (keepActive.includes(eventKey)) {
-        setSettings({ ...settings, error: eventKey.split("-")[1] });
+        setSettings({ ...settings, error: eventKey });
       }
       resetHideMe();
     }
@@ -101,7 +101,7 @@ export default function TypeMeNavBar({ hideMe, resetHideMe, settings, setSetting
               id="stats"
               tabIndex="-1"
               onChange={(e) => setSettings({ ...settings, stats: e.target.checked })}
-              defaultChecked={settings.stats}
+              checked={settings.stats === "true" || settings.stats === true ? true : false}
             ></input>
           </div>
           <hr />
@@ -115,29 +115,29 @@ export default function TypeMeNavBar({ hideMe, resetHideMe, settings, setSetting
               id="errors"
               tabIndex="-1"
               onChange={(e) => setSettings({ ...settings, blockOnError: e.target.checked })}
-              defaultChecked={settings.blockOnError}
+              checked={settings.blockOnError}
             ></input>
           </div>
           <Nav
             fill
             variant="tabs"
-            defaultActiveKey={"error-".concat(settings.error)}
+            // defaultChecked="error-1"
             className={"blockOnError ".concat(settings.blockOnError ? "" : "hide")}
             onSelect={(eventKey, e) => handleSelect(eventKey, e)}
             tabIndex="-1"
           >
             <Nav.Item>
-              <Nav.Link eventKey="error-1" tabIndex="-1">
+              <Nav.Link eventKey="error-1" tabIndex="-1" active={settings.error === "error-1"}>
                 1st
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link eventKey="error-2" tabIndex="-1">
+              <Nav.Link eventKey="error-2" tabIndex="-1" active={settings.error === "error-2"}>
                 2nd
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link eventKey="error-3" tabIndex="-1">
+              <Nav.Link eventKey="error-3" tabIndex="-1" active={settings.error === "error-3"}>
                 3rd
               </Nav.Link>
             </Nav.Item>
@@ -161,7 +161,7 @@ export default function TypeMeNavBar({ hideMe, resetHideMe, settings, setSetting
               id="keyboard"
               tabIndex="-1"
               onChange={(e) => setSettings({ ...settings, sound: e.target.checked })}
-              defaultChecked={settings.sound}
+              checked={settings.sound}
             ></input>
           </div>
           <hr />
@@ -175,7 +175,7 @@ export default function TypeMeNavBar({ hideMe, resetHideMe, settings, setSetting
               id="voice"
               tabIndex="-1"
               onChange={(e) => setSettings({ ...settings, voice: e.target.checked })}
-              defaultChecked={settings.voice}
+              checked={settings.voice}
             ></input>
           </div>
         </Nav>

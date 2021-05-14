@@ -24,10 +24,10 @@ export default function TypingPage({ typeMe }) {
   const [letterMarks, setLetterMarks] = useState([]);
   const [settings, setSettings] = useState({
     sound: true,
-    voice: true,
+    voice: false,
     stats: true,
     blockOnError: true,
-    error: 1,
+    error: "error-1",
   });
 
   const wordsArr = useCallback(() => {
@@ -58,6 +58,30 @@ export default function TypingPage({ typeMe }) {
   useEffect(() => {
     typingRef.current.focus();
   }, [typingRef]);
+
+  // if local settings exist set to state settings
+  useEffect(() => {
+    const localSettings = localStorage.getItem("settings");
+    // console.log("localSettings", localSettings);
+
+    if (localSettings) {
+      console.log("loaded settings from local storage");
+      setSettings(JSON.parse(localSettings));
+      // setSettings({
+      //   sound: false,
+      //   voice: false,
+      //   stats: false,
+      //   blockOnError: false,
+      //   error: 1,
+      // });
+    }
+  }, []);
+
+  // save settings to local storage on every update
+  useEffect(() => {
+    localStorage.setItem("settings", JSON.stringify(settings));
+    // console.log("localSettings updated", localStorage.getItem("settings"));
+  }, [settings]);
 
   function handleTypingKey(e) {
     if (isAlphanumeric(e.keyCode)) {
