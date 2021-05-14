@@ -5,19 +5,29 @@ export default function Word({ word, wordNum, letterMarks }) {
 
   for (let i = 0; i < word.length; ++i) {
     spanLetters[i] = (
-      <span
-        key={`w-${wordNum}-letter-${i}`}
-        className={
-          !letterMarks
-            ? "letterSpan "
-            : "letterSpan "
-                .concat(letterMarks[i].isClean ? "_clean " : "")
-                .concat(letterMarks[i].isCorrect ? "_correct " : "")
-                .concat(letterMarks[i].isError ? "_error " : "")
-                .concat(letterMarks[i].isFixed ? "_fixed " : "")
-        }
-      >
-        {word[i]}
+      <span key={`w-${wordNum}-letter-${i}`}>
+        <span
+          className={
+            !letterMarks
+              ? "letterSpan "
+              : "letterSpan "
+                  .concat(letterMarks[i].isClean ? "_clean " : "")
+                  .concat(letterMarks[i].isCorrect ? "_correct " : "")
+                  .concat(letterMarks[i].isError && !letterMarks[i].isBlocked ? "_error " : "_blocked ")
+                  .concat(letterMarks[i].isFixed ? "_fixed " : "")
+          }
+        >
+          {word[i]}
+        </span>
+        <span
+          className={
+            letterMarks && letterMarks.length > 0 && letterMarks[i].errorChar
+              ? "errorChar ".concat(letterMarks[i].class)
+              : "errorChar"
+          }
+        >
+          {letterMarks && letterMarks.length > 0 && letterMarks[i].errorChar ? letterMarks[i].errorChar : " "}
+        </span>
       </span>
     );
   }

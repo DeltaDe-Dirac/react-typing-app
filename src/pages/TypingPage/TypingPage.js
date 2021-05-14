@@ -50,6 +50,9 @@ export default function TypingPage({ typeMe }) {
               isCorrect: false,
               isFixed: false,
               isError: false,
+              errorChar: null,
+              isBlocked: false,
+              class: "",
             })
           )
         : []
@@ -65,7 +68,6 @@ export default function TypingPage({ typeMe }) {
     const localSettings = localStorage.getItem("settings");
 
     if (localSettings) {
-      console.log("loaded settings from local storage");
       setSettings(JSON.parse(localSettings));
     }
   }, []);
@@ -88,7 +90,7 @@ export default function TypingPage({ typeMe }) {
           curErrorCounter = 0;
           setErrorCounter(curErrorCounter);
         }
-        handleMarkingAndIncrement(true, curErrorCounter);
+        handleMarkingAndIncrement(true, curErrorCounter, e.key);
       } else {
         playSound(misType);
         if (settings.blockOnError && curErrorCounter < parseInt(settings.error.split("-")[1])) {
@@ -96,27 +98,29 @@ export default function TypingPage({ typeMe }) {
           setErrorCounter(curErrorCounter);
         }
 
-        handleMarkingAndIncrement(false, curErrorCounter);
+        handleMarkingAndIncrement(false, curErrorCounter, e.key);
       }
     } else if (isBackSpace(e.keyCode)) {
       playSound(correctType);
+      handleMarkingAndDecrement();
       if (settings.blockOnError && curErrorCounter > 0) {
-        handleMarkingAndDecrementOnError(curErrorCounter);
-        curErrorCounter -= 1;
+        curErrorCounter -= isBlockOnError(curErrorCounter) && parseInt(settings.error.split("-")[1]) > 1 ? 2 : 1;
         setErrorCounter(curErrorCounter);
-      } else {
-        handleMarkingAndDecrement();
       }
     }
   }
 
-  function handleMarkingAndIncrement(isCorrectlyTyped, curErrorCounter) {
+  function handleMarkingAndIncrement(isCorrectlyTyped, curErrorCounter, char) {
     if (!isCorrectlyTyped && isBlockOnError(curErrorCounter)) {
+      const curLetterMark = letterMarks[wordIndex][letterIndex];
       letterMarks[wordIndex][letterIndex] = {
         isClean: false,
         isCorrect: false,
         isFixed: false,
         isError: true,
+        errorChar: char,
+        isBlocked: true,
+        class: curLetterMark.class === "" || curLetterMark.class === "show2" ? "show1" : "show2",
       };
       setLetterMarks([...letterMarks]);
       return;
@@ -130,6 +134,9 @@ export default function TypingPage({ typeMe }) {
           isCorrect: true,
           isFixed: false,
           isError: false,
+          errorChar: null,
+          isBlocked: false,
+          class: "",
         };
       } else if (letterMark.isError || letterMark.isFixed) {
         letterMarks[wordIndex][letterIndex] = {
@@ -137,6 +144,9 @@ export default function TypingPage({ typeMe }) {
           isCorrect: false,
           isFixed: true,
           isError: false,
+          errorChar: null,
+          isBlocked: false,
+          class: "",
         };
       }
     } else {
@@ -145,6 +155,9 @@ export default function TypingPage({ typeMe }) {
         isCorrect: false,
         isFixed: false,
         isError: true,
+        errorChar: char,
+        isBlocked: false,
+        class: "show1",
       };
     }
 
@@ -174,7 +187,13 @@ export default function TypingPage({ typeMe }) {
       } else {
         const prevWordLastIndex = wordsArr()[wordIndex - 1].length - 1;
         const curLetterMark = letterMarks[wordIndex - 1][prevWordLastIndex];
-        [curLetterMark.isClean, curLetterMark.isCorrect] = [true, false];
+        [
+          curLetterMark.isClean,
+          curLetterMark.isCorrect,
+          curLetterMark.errorChar,
+          curLetterMark.isBlocked,
+          curLetterMark.class,
+        ] = [true, false, null, false, ""];
         letterMarks[wordIndex - 1][prevWordLastIndex] = curLetterMark;
 
         setLetterMarks([...letterMarks]);
@@ -183,7 +202,13 @@ export default function TypingPage({ typeMe }) {
       }
     } else {
       const curLetterMark = letterMarks[wordIndex][letterIndex - 1];
-      [curLetterMark.isClean, curLetterMark.isCorrect] = [true, false];
+      [
+        curLetterMark.isClean,
+        curLetterMark.isCorrect,
+        curLetterMark.errorChar,
+        curLetterMark.isBlocked,
+        curLetterMark.class,
+      ] = [true, false, null, false, ""];
       letterMarks[wordIndex][letterIndex - 1] = curLetterMark;
 
       setLetterMarks([...letterMarks]);
@@ -191,27 +216,33 @@ export default function TypingPage({ typeMe }) {
     }
   }
 
-  function handleMarkingAndDecrementOnError(curErrorCounter) {
-    let curLetterIndex = isBlockOnError(curErrorCounter) ? letterIndex : letterIndex - 1;
-    let curWordIndex = wordIndex;
+  // function handleMarkingAndDecrementOnError(curErrorCounter) {
+  //   let curLetterIndex = isBlockOnError(curErrorCounter) ? letterIndex : letterIndex - 1;
+  //   let curWordIndex = wordIndex;
 
-    if (curLetterIndex < 0) {
-      if (curWordIndex === 0) {
-        return;
-      } else {
-        curWordIndex -= 1;
-        curLetterIndex = wordsArr()[curWordIndex].length - 1;
-        setWordIndex(curWordIndex);
-      }
-    }
+  //   if (curLetterIndex < 0) {
+  //     if (curWordIndex === 0) {
+  //       return;
+  //     } else {
+  //       curWordIndex -= 1;
+  //       curLetterIndex = wordsArr()[curWordIndex].length - 1;
+  //       setWordIndex(curWordIndex);
+  //     }
+  //   }
 
-    const curLetterMark = letterMarks[curWordIndex][curLetterIndex];
-    [curLetterMark.isClean, curLetterMark.isCorrect] = [true, false];
-    letterMarks[curWordIndex][curLetterIndex] = curLetterMark;
+  //   const curLetterMark = letterMarks[curWordIndex][curLetterIndex];
+  //   [
+  //     curLetterMark.isClean,
+  //     curLetterMark.isCorrect,
+  //     curLetterMark.errorChar,
+  //     curLetterMark.isBlocked,
+  //     curLetterMark.class,
+  //   ] = [true, false, null, false, ""];
+  //   letterMarks[curWordIndex][curLetterIndex] = curLetterMark;
 
-    setLetterMarks([...letterMarks]);
-    setLetterIndex(curLetterIndex);
-  }
+  //   setLetterMarks([...letterMarks]);
+  //   setLetterIndex(curLetterIndex);
+  // }
 
   function playSound(play) {
     if (settings.sound) {
