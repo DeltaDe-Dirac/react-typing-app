@@ -29,6 +29,7 @@ export default function TypingPage({ typeMe }) {
     blockOnError: false,
     error: "error-1",
   });
+  const [errorCounter, setErrorCounter] = useState(1);
 
   const wordsArr = useCallback(() => {
     const typeWords = typeMe ? typeMe.split(/\s+/g).map((word) => word.concat(" ")) : null;
@@ -81,44 +82,70 @@ export default function TypingPage({ typeMe }) {
   useEffect(() => {
     localStorage.setItem("settings", JSON.stringify(settings));
     // console.log("localSettings updated", localStorage.getItem("settings"));
+    if (!settings.blockOnError) {
+      setErrorCounter(1);
+    }
   }, [settings]);
 
   function handleTypingKey(e) {
     if (isAlphanumeric(e.keyCode)) {
       if (wordsArr()[wordIndex][letterIndex] === e.key) {
         playSound(correctType);
-        const letterMark = letterMarks[wordIndex][letterIndex];
-
-        if (!letterMark.isCorrect && !letterMark.isFixed && !letterMark.isError) {
-          letterMarks[wordIndex][letterIndex] = {
-            isClean: false,
-            isCorrect: true,
-            isFixed: false,
-            isError: false,
-          };
-        } else if (letterMark.isError || letterMark.isFixed) {
-          letterMarks[wordIndex][letterIndex] = {
-            isClean: false,
-            isCorrect: false,
-            isFixed: true,
-            isError: false,
-          };
+        if (settings.blockOnError) {
+          setErrorCounter(1);
         }
+        handleMarkingAndIncrement(true);
       } else {
         playSound(misType);
+
+        if (settings.blockOnError && errorCounter < parseInt(settings.error.split("-")[1])) {
+          setErrorCounter(errorCounter + 1);
+        }
+
+        handleMarkingAndIncrement(false);
+      }
+    } else if (isBackSpace(e.keyCode)) {
+      if (settings.blockOnError && errorCounter > 0) {
+        setErrorCounter(errorCounter - 1);
+      }
+      playSound(correctType);
+      handleMarkingAndDecrement();
+    }
+  }
+
+  function handleMarkingAndIncrement(isCorrectlyTyped) {
+    if (!isCorrectlyTyped && isBlockOnError()) {
+      return;
+    }
+
+    if (isCorrectlyTyped) {
+      const letterMark = letterMarks[wordIndex][letterIndex];
+      if (!letterMark.isCorrect && !letterMark.isFixed && !letterMark.isError) {
+        letterMarks[wordIndex][letterIndex] = {
+          isClean: false,
+          isCorrect: true,
+          isFixed: false,
+          isError: false,
+        };
+      } else if (letterMark.isError || letterMark.isFixed) {
         letterMarks[wordIndex][letterIndex] = {
           isClean: false,
           isCorrect: false,
-          isFixed: false,
-          isError: true,
+          isFixed: true,
+          isError: false,
         };
       }
-      setLetterMarks([...letterMarks]);
-      handleIncrement();
-    } else if (isBackSpace(e.keyCode)) {
-      playSound(correctType);
-      handleDecrement();
+    } else {
+      letterMarks[wordIndex][letterIndex] = {
+        isClean: false,
+        isCorrect: false,
+        isFixed: false,
+        isError: true,
+      };
     }
+
+    setLetterMarks([...letterMarks]);
+    handleIncrement();
   }
 
   function handleIncrement() {
@@ -136,7 +163,7 @@ export default function TypingPage({ typeMe }) {
     }
   }
 
-  function handleDecrement() {
+  function handleMarkingAndDecrement() {
     if (letterIndex === 0) {
       if (wordIndex === 0) {
         // do nothing - reached the beginning
@@ -164,6 +191,16 @@ export default function TypingPage({ typeMe }) {
     if (settings.sound) {
       play();
     }
+  }
+
+  function isBlockOnError() {
+    if (!settings.blockOnError) {
+      return false;
+    }
+
+    const errorLimit = parseInt(settings.error.split("-")[1]);
+
+    return errorCounter === errorLimit;
   }
 
   return (
