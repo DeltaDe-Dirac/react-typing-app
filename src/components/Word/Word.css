@@ -2,10 +2,10 @@
 .errorChar {
   border: solid black;
   border-radius: 5px;
-  width: 30px;
-  min-width: 30px;
+  width: 35px;
+  min-width: 35px;
   line-height: 1.5em;
-  margin: 2px -6.5px;
+  margin: 2px -8.5px;
   font-size: 2em;
   text-align: center;
   display: inline-block;

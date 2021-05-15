@@ -285,7 +285,7 @@ export default function TypingPage({ typeMe }) {
         setErrorCounter={setErrorCounter}
       />
 
-      <Container className="typeMeContainer">
+      <Container className="typeMeContainer" fluid="xl">
         <div className="typeMeDiv">
           {wordsArr()
             ? wordsArr().map((word, index) => (
