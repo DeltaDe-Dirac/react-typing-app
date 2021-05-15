@@ -1,6 +1,6 @@
 .letterSpan,
 .errorChar {
-  border: solid black;
+  border: 2px solid black;
   border-radius: 5px;
   width: 35px;
   min-width: 35px;
@@ -54,11 +54,11 @@
 }
 
 .wordsSpan .errorChar.show1 {
-  animation: displayError1 1s;
+  animation: displayError1 1.3s;
 }
 
 .wordsSpan .errorChar.show2 {
-  animation: displayError2 1s;
+  animation: displayError2 1.3s;
 }
 
 @keyframes displayError1 {
