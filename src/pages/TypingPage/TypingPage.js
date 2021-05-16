@@ -5,6 +5,7 @@ import { Container } from "react-bootstrap";
 import TypeMeNavBar from "../../components/TypeMeNavBar/TypeMeNavBar";
 import Word from "../../components/Word/Word";
 import { isBackSpace, isAlphanumeric } from "../../utils/keycodes";
+import { useResizeDetector } from "react-resize-detector";
 
 import useSound from "use-sound";
 import rightPress from "./sounds/rightPress.mp3";
@@ -30,6 +31,15 @@ export default function TypingPage({ typeMe }) {
     error: "error-1",
   });
   const [errorCounter, setErrorCounter] = useState(0);
+  const [lines, setLines] = useState(null);
+  const [scroll, setScroll] = useState({
+    lineNum: 3,
+    from: 0,
+    to: 0,
+    step: 56,
+    animName: "lineUp1",
+  });
+  const { width, height, ref } = useResizeDetector();
 
   const wordsArr = useCallback(() => {
     const typeWords = typeMe ? typeMe.split(/\s+/g).map((word) => word.concat(" ")) : null;
@@ -63,6 +73,7 @@ export default function TypingPage({ typeMe }) {
     typingRef.current.focus();
   }, [typingRef]);
 
+  // ---------------------------------------------------------------------------------------
   // if local settings exist set to state settings
   useEffect(() => {
     const localSettings = localStorage.getItem("settings");
@@ -79,6 +90,7 @@ export default function TypingPage({ typeMe }) {
       setErrorCounter(0);
     }
   }, [settings]);
+  // ---------------------------------------------------------------------------------------
 
   function handleTypingKey(e) {
     let curErrorCounter = errorCounter;
@@ -216,34 +228,6 @@ export default function TypingPage({ typeMe }) {
     }
   }
 
-  // function handleMarkingAndDecrementOnError(curErrorCounter) {
-  //   let curLetterIndex = isBlockOnError(curErrorCounter) ? letterIndex : letterIndex - 1;
-  //   let curWordIndex = wordIndex;
-
-  //   if (curLetterIndex < 0) {
-  //     if (curWordIndex === 0) {
-  //       return;
-  //     } else {
-  //       curWordIndex -= 1;
-  //       curLetterIndex = wordsArr()[curWordIndex].length - 1;
-  //       setWordIndex(curWordIndex);
-  //     }
-  //   }
-
-  //   const curLetterMark = letterMarks[curWordIndex][curLetterIndex];
-  //   [
-  //     curLetterMark.isClean,
-  //     curLetterMark.isCorrect,
-  //     curLetterMark.errorChar,
-  //     curLetterMark.isBlocked,
-  //     curLetterMark.class,
-  //   ] = [true, false, null, false, ""];
-  //   letterMarks[curWordIndex][curLetterIndex] = curLetterMark;
-
-  //   setLetterMarks([...letterMarks]);
-  //   setLetterIndex(curLetterIndex);
-  // }
-
   function playSound(play) {
     if (settings.sound) {
       play();
@@ -258,6 +242,153 @@ export default function TypingPage({ typeMe }) {
     const errorLimit = parseInt(settings.error.split("-")[1]);
     return curErrorCounter === errorLimit;
   }
+  // ---------------------------------------------------------------------------------------
+
+  const handleLines = useCallback(() => {
+    const letterSpanWidth = 36;
+    // ----------------------------
+    if (wordsArr() === null) {
+      return null;
+    }
+
+    // GET ALL SPAN RECTANGLES
+    const example = document.getElementById("typeMeDiv");
+    const range = document.createRange();
+    range.setStart(example, 0);
+    range.setEnd(example, range.commonAncestorContainer.childNodes.length);
+    const rects = range.getClientRects();
+
+    // FILTER BY WIDTH ONLY RELEVANT ONES
+    const spanRectangles = [];
+    for (const rect of rects) {
+      if (rect.width === letterSpanWidth) {
+        spanRectangles.push(rect);
+      }
+    }
+
+    let curLinePos = 0;
+    const breakingLineIndex = [];
+
+    // DETERMINE INDICES OF BREAKING LINES
+    for (let i = 0; i < spanRectangles.length; i++) {
+      if (curLinePos !== spanRectangles[i].top) {
+        curLinePos = spanRectangles[i].top;
+        breakingLineIndex.push(i);
+      }
+    }
+    breakingLineIndex.push(spanRectangles.length);
+
+    // CALCULATE WORDS LENGTH AND PREFIX SUMS
+    const wordsLengthArr = wordsArr().map((word) => word.length);
+    const wordsLenPrefixSum = [0];
+    wordsLengthArr.forEach((element, index) => {
+      wordsLenPrefixSum.push(wordsLenPrefixSum[index] + element);
+    });
+
+    // ARRAY OF WORDS PER LINE
+    const wordsPerLine = [];
+    let k = 1;
+    for (let i = 1; i < breakingLineIndex.length; ++i) {
+      for (let j = k; j < wordsLenPrefixSum.length; ++j) {
+        if (breakingLineIndex[i] === wordsLenPrefixSum[j]) {
+          wordsPerLine.push(j - k + 1);
+          k = j + 1;
+          break;
+        }
+      }
+    }
+
+    if (width || height) {
+      //do nothing
+    }
+
+    if (wordsPerLine) {
+      setLines(wordsPerLine);
+    }
+  }, [width, height, wordsArr]);
+
+  useEffect(() => {
+    handleLines();
+  }, [handleLines]);
+
+  // ---------------------------------------------------------------------------------------
+
+  function createLinesOfWords() {
+    const arrOfWords = wordsArr();
+    if (arrOfWords === null) {
+      return null;
+    }
+
+    let linesOfWords = [];
+    if (lines === null) {
+      // console.log("def lines");
+      linesOfWords = arrOfWords.map((word, index) => (
+        <span key={`wordSpan-${index}`} className="lineSpan">
+          <Word word={word} wordNum={index} letterMarks={letterMarks[index]} />
+        </span>
+      ));
+    } else {
+      // console.log("real lines");
+      linesOfWords = [];
+      let k = 0;
+      for (let i = 0; i < lines.length; ++i) {
+        let groupOfWords = [];
+        for (let j = k; j < lines[i] + k; ++j) {
+          groupOfWords.push(
+            <Word key={`wordSpan-${j + k}`} word={arrOfWords[j]} wordNum={j} letterMarks={letterMarks[j]} />
+          );
+        }
+        if (wordIndex >= k && wordIndex < lines[i] + k) {
+          handleScrolling(i);
+        }
+
+        linesOfWords.push(
+          <span
+            key={`lineSpan-${i}`}
+            className={"lineSpan ".concat(wordIndex >= k && wordIndex < lines[i] + k ? "_focus" : "")}
+          >
+            {groupOfWords}
+          </span>
+        );
+        k += lines[i];
+      }
+    }
+
+    return linesOfWords;
+  }
+
+  function handleScrolling(lineNum) {
+    if (lineNum - scroll.lineNum === 2) {
+      console.log("line dif = 2", lineNum);
+      scroll.from = scroll.to;
+      scroll.to = -2 * scroll.step + scroll.to;
+      scroll.lineNum = lineNum;
+      scroll.animName = scroll.animName === "lineUp1" ? "lineUp2" : "lineUp1";
+      setScroll({ ...scroll });
+    }
+  }
+
+  useEffect(() => {
+    if (scroll.lineNum > 3) {
+      console.log("scrolling down", scroll);
+      let styleSheet = document.styleSheets[0];
+      const from = scroll.from + "px";
+      const to = scroll.to + "px";
+
+      let keyframes = `@keyframes ${scroll.animName} {
+      from {
+        margin-top: ${from};
+      }
+      to {
+        margin-top: ${to};
+      }
+    }`;
+
+      styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
+    }
+  }, [scroll]);
+
+  // const style = { animation: `${animName} 2s`, marginTop: `${scroll.to}px` };
 
   return (
     <div
@@ -285,13 +416,15 @@ export default function TypingPage({ typeMe }) {
         setErrorCounter={setErrorCounter}
       />
 
-      <Container className="typeMeContainer" fluid="xl">
-        <div className="typeMeDiv">
-          {wordsArr()
-            ? wordsArr().map((word, index) => (
-                <Word key={`wordSpan-${index}`} word={word} wordNum={index} letterMarks={letterMarks[index]} />
-              ))
-            : null}
+      <Container className="typeMeContainer" fluid="xl" ref={ref}>
+        <div
+          style={
+            scroll.lineNum > 3 ? { animation: `${scroll.animName} 2s`, marginTop: `${scroll.to}px` } : { marginTop: 0 }
+          }
+          className={"typeMeDiv"}
+          id="typeMeDiv"
+        >
+          {createLinesOfWords()}
         </div>
       </Container>
     </div>
