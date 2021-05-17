@@ -223,7 +223,9 @@ export default function TypingPage({ typeMe }) {
 
   function clearCurOrPrevErrorChar(isClearCurrentChar) {
     if (isClearCurrentChar) {
-      letterMarks[wordIndex][letterIndex].errorChar = null;
+      if (letterMarks[wordIndex][letterIndex]) {
+        letterMarks[wordIndex][letterIndex].errorChar = null;
+      }
     }
 
     const prevPosition = getPrevPosition();
@@ -473,7 +475,7 @@ export default function TypingPage({ typeMe }) {
       <Container className="typeMeContainer" fluid="xl" ref={ref}>
         <div
           style={
-            scroll.lineNum >= 3
+            !isFinished && scroll.lineNum >= 3
               ? { animation: `${scroll.animName} 1s`, marginTop: `${scroll.to}px` }
               : { animation: "top 1s", marginTop: 0 }
           }
@@ -481,6 +483,18 @@ export default function TypingPage({ typeMe }) {
           id="typeMeDiv"
         >
           {createLinesOfWords()}
+        </div>
+      </Container>
+      <Container className="progressContainer" fluid="xl">
+        <div className="progress">
+          <div
+            style={{ width: `${wordsArr() ? Math.round((wordIndex / (wordsArr().length - 1)) * 100) : 0}%` }}
+            className="progress-bar "
+            role="progressbar"
+            aria-valuenow="75"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
         </div>
       </Container>
     </div>

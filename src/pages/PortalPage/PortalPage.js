@@ -43,7 +43,7 @@ export default function PortalPage({ isLoggedIn, setIsLoggedIn, isSignOut, setIs
     if (planArg !== planArgChaned) {
       setLessons(null);
     }
-  }, [planArg, isValidPlanArgument]);
+  }, [planArg, isValidPlanArgument, planArgChaned]);
 
   if (isSignOut) {
     return <Redirect push to="/" />;
