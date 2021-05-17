@@ -5,7 +5,15 @@ import { Nav, Navbar } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function TypeMeNavBar({ hideMe, resetHideMe, settings, setSettings, errorCounter, setErrorCounter }) {
+export default function TypeMeNavBar({
+  hideMe,
+  resetHideMe,
+  settings,
+  setSettings,
+  errorCounter,
+  setErrorCounter,
+  header,
+}) {
   const hist = useHistory();
   const keepActive = ["error-1", "error-2", "error-3"];
   const [floatMenu, toggleFloatMenu] = useState(null);
@@ -69,7 +77,9 @@ export default function TypeMeNavBar({ hideMe, resetHideMe, settings, setSetting
               <FontAwesomeIcon icon={["fa", "arrow-alt-circle-left"]} />
             </Nav.Link>
 
-            <Navbar.Brand>Lesson 223: Human Body</Navbar.Brand>
+            <Navbar.Brand>
+              Lesson {header.num}: {header.title}
+            </Navbar.Brand>
           </Nav>
         </Navbar.Collapse>
         <Nav variant="tabs" onSelect={(eventKey, e) => handleSelect(eventKey, e)} onKeyDown={(e) => setKeyEvent(e)}>

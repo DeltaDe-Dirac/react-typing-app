@@ -43,7 +43,7 @@ export default function TypingPage({ typeMe }) {
   const { width, height, ref } = useResizeDetector();
 
   const wordsArr = useCallback(() => {
-    const typeWords = typeMe ? typeMe.split(/\s+/g).map((word) => word.concat(" ")) : null;
+    const typeWords = typeMe ? typeMe.text.split(/\s+/g).map((word) => word.concat(" ")) : null;
 
     if (typeWords) {
       typeWords[typeWords.length - 1] = typeWords[typeWords.length - 1].trim();
@@ -434,6 +434,7 @@ export default function TypingPage({ typeMe }) {
         setSettings={setSettings}
         errorCounter={errorCounter}
         setErrorCounter={setErrorCounter}
+        header={typeMe ? typeMe.header : {}}
       />
 
       <Container className="typeMeContainer" fluid="xl" ref={ref}>
