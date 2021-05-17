@@ -19,6 +19,7 @@ export default function PortalPage({ isLoggedIn, setIsLoggedIn, isSignOut, setIs
 
   const [showAuth, setShowAuth] = useState(false);
   const [lessons, setLessons] = useState(null);
+  const [planArgChaned, setPlanArgChanged] = useState(planArg);
 
   const isValidPlanArgument = useCallback(() => {
     return planArg && jsonPlans && jsonPlans.length > 0 && Number(planArg) < jsonPlans.length && jsonPlans[planArg];
@@ -31,11 +32,16 @@ export default function PortalPage({ isLoggedIn, setIsLoggedIn, isSignOut, setIs
   useEffect(() => {
     if (isValidPlanArgument()) {
       const dataPath = process.env.PUBLIC_URL.concat("/data/");
+      setPlanArgChanged(planArg);
 
       axios
         .get(dataPath.concat(jsonPlans[planArg].filename))
         .then((res) => setLessons(res.data.lessons))
         .catch((err) => console.error(err));
+    }
+
+    if (planArg !== planArgChaned) {
+      setLessons(null);
     }
   }, [planArg, isValidPlanArgument]);
 
