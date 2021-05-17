@@ -38,6 +38,7 @@ export default function TypingPage({ typeMe }) {
     to: 0,
     step: 56,
     animName: "lineUp1",
+    isUp: false,
   });
   const { width, height, ref } = useResizeDetector();
 
@@ -181,7 +182,7 @@ export default function TypingPage({ typeMe }) {
     if (letterIndex + 1 === wordsArr()[wordIndex].length) {
       if (wordIndex + 1 === wordsArr().length) {
         // stop the lesson here
-        finishLesson();
+        playSound(finishLesson);
         setLetterIndex(letterIndex + 1);
       } else {
         setLetterIndex(0);
@@ -358,12 +359,31 @@ export default function TypingPage({ typeMe }) {
   }
 
   function handleScrolling(lineNum) {
-    if (lineNum - scroll.lineNum === 2) {
-      console.log("line dif = 2", lineNum);
+    if (
+      (!scroll.isUp && lineNum - scroll.lineNum === -1 && scroll.lineNum > 4) ||
+      (scroll.isUp && lineNum - scroll.lineNum === 1 && lineNum > 3)
+    ) {
+      // console.log("line dif = +1/-1", lineNum, scroll.lineNum, scroll.isUp);
+      [scroll.from, scroll.to] = [scroll.to, scroll.from];
+      scroll.lineNum = lineNum;
+      scroll.animName = scroll.animName === "lineUp1" ? "lineUp2" : "lineUp1";
+      scroll.isUp = !scroll.isUp;
+      setScroll({ ...scroll });
+    } else if (lineNum - scroll.lineNum === 2 && lineNum > 3) {
+      // console.log("line dif = 2", lineNum);
       scroll.from = scroll.to;
       scroll.to = -2 * scroll.step + scroll.to;
       scroll.lineNum = lineNum;
       scroll.animName = scroll.animName === "lineUp1" ? "lineUp2" : "lineUp1";
+      scroll.isUp = false;
+      setScroll({ ...scroll });
+    } else if (lineNum - scroll.lineNum === -2 && scroll.lineNum > 4) {
+      console.log("line dif = -1", lineNum);
+      scroll.from = scroll.to;
+      scroll.to = scroll.to + 2 * scroll.step;
+      scroll.lineNum = lineNum;
+      scroll.animName = scroll.animName === "lineUp1" ? "lineUp2" : "lineUp1";
+      scroll.isUp = true;
       setScroll({ ...scroll });
     }
   }
