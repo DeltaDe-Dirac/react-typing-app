@@ -41,6 +41,7 @@ export default function TypingPage({ typeMe }) {
     isUp: false,
     last: null,
   });
+  const [isFinished, setIsFinished] = useState(false);
   const { width, height, ref } = useResizeDetector();
 
   const wordsArr = useCallback(() => {
@@ -95,6 +96,10 @@ export default function TypingPage({ typeMe }) {
   // ---------------------------------------------------------------------------------------
 
   function handleTypingKey(e) {
+    if (isFinished) {
+      return;
+    }
+
     let curErrorCounter = errorCounter;
     if (isAlphanumeric(e.keyCode)) {
       if (wordsArr()[wordIndex][letterIndex] === e.key) {
@@ -180,54 +185,70 @@ export default function TypingPage({ typeMe }) {
   }
 
   function handleIncrement() {
-    if (letterIndex + 1 === wordsArr()[wordIndex].length) {
-      if (wordIndex + 1 === wordsArr().length) {
-        // stop the lesson here
-        playSound(finishLesson);
-        setLetterIndex(letterIndex + 1);
-      } else {
-        setLetterIndex(0);
-        setWordIndex(wordIndex + 1);
-      }
-    } else {
+    const nextPosition = getNextPosition();
+    if (nextPosition === null) {
+      // stop the lesson here
+      setIsFinished(true);
+      playSound(finishLesson);
       setLetterIndex(letterIndex + 1);
+      return;
     }
+
+    setWordIndex(nextPosition.wordIdx);
+    setLetterIndex(nextPosition.letterIdx);
   }
 
   function handleMarkingAndDecrement() {
-    if (letterIndex === 0) {
-      if (wordIndex === 0) {
-        // do nothing - reached the beginning
-      } else {
-        const prevWordLastIndex = wordsArr()[wordIndex - 1].length - 1;
-        const curLetterMark = letterMarks[wordIndex - 1][prevWordLastIndex];
-        [
-          curLetterMark.isClean,
-          curLetterMark.isCorrect,
-          curLetterMark.errorChar,
-          curLetterMark.isBlocked,
-          curLetterMark.class,
-        ] = [true, false, null, false, ""];
-        letterMarks[wordIndex - 1][prevWordLastIndex] = curLetterMark;
+    const prevPosition = getPrevPosition();
+    if (prevPosition === null) {
+      // do nothing - reached the beginning
+      return;
+    }
+    const curLetterMark = letterMarks[prevPosition.wordIdx][prevPosition.letterIdx];
+    [
+      curLetterMark.isClean,
+      curLetterMark.isCorrect,
+      curLetterMark.errorChar,
+      curLetterMark.isBlocked,
+      curLetterMark.class,
+    ] = [true, false, null, false, ""];
+    letterMarks[prevPosition.wordIdx][prevPosition.letterIdx] = curLetterMark;
 
-        setLetterMarks([...letterMarks]);
-        setLetterIndex(prevWordLastIndex);
-        setWordIndex(wordIndex - 1);
+    setLetterMarks([...letterMarks]);
+    setWordIndex(prevPosition.wordIdx);
+    setLetterIndex(prevPosition.letterIdx);
+  }
+
+  function getNextPosition() {
+    let nextLetterIndex, nextWordIndex;
+
+    if (letterIndex === wordsArr()[wordIndex].length - 1) {
+      if (wordIndex === wordsArr().length - 1) {
+        return null;
+      } else {
+        nextWordIndex = wordIndex + 1;
+        nextLetterIndex = 0;
       }
     } else {
-      const curLetterMark = letterMarks[wordIndex][letterIndex - 1];
-      [
-        curLetterMark.isClean,
-        curLetterMark.isCorrect,
-        curLetterMark.errorChar,
-        curLetterMark.isBlocked,
-        curLetterMark.class,
-      ] = [true, false, null, false, ""];
-      letterMarks[wordIndex][letterIndex - 1] = curLetterMark;
-
-      setLetterMarks([...letterMarks]);
-      setLetterIndex(letterIndex - 1);
+      nextWordIndex = wordIndex;
+      nextLetterIndex = letterIndex + 1;
     }
+    return { wordIdx: nextWordIndex, letterIdx: nextLetterIndex };
+  }
+
+  function getPrevPosition() {
+    let prevLetterIndex, prevWordIndex;
+    if (letterIndex === 0) {
+      if (wordIndex === 0) {
+        return null;
+      }
+      prevWordIndex = wordIndex - 1;
+      prevLetterIndex = wordsArr()[prevWordIndex].length - 1;
+    } else {
+      prevLetterIndex = letterIndex - 1;
+      prevWordIndex = wordIndex;
+    }
+    return { wordIdx: prevWordIndex, letterIdx: prevLetterIndex };
   }
 
   function playSound(play) {
