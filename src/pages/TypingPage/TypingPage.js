@@ -42,7 +42,8 @@ export default function TypingPage({ typeMe }) {
     last: null,
   });
   const [isFinished, setIsFinished] = useState(false);
-  const { width, height, ref } = useResizeDetector();
+  const onResize = useCallback(() => onWindowResize());
+  const { width, height, ref } = useResizeDetector({ onResize });
 
   const wordsArr = useCallback(() => {
     const typeWords = typeMe ? typeMe.text.split(/\s+/g).map((word) => word.concat(" ")) : null;
@@ -102,6 +103,7 @@ export default function TypingPage({ typeMe }) {
 
     let curErrorCounter = errorCounter;
     if (isAlphanumeric(e.keyCode)) {
+      clearCurOrPrevErrorChar(false);
       if (wordsArr()[wordIndex][letterIndex] === e.key) {
         playSound(correctType);
 
@@ -217,6 +219,17 @@ export default function TypingPage({ typeMe }) {
     setLetterMarks([...letterMarks]);
     setWordIndex(prevPosition.wordIdx);
     setLetterIndex(prevPosition.letterIdx);
+  }
+
+  function clearCurOrPrevErrorChar(isClearCurrentChar) {
+    if (isClearCurrentChar) {
+      letterMarks[wordIndex][letterIndex].errorChar = null;
+    }
+
+    const prevPosition = getPrevPosition();
+    if (prevPosition) {
+      letterMarks[prevPosition.wordIdx][prevPosition.letterIdx].errorChar = null;
+    }
   }
 
   function getNextPosition() {
@@ -422,6 +435,13 @@ export default function TypingPage({ typeMe }) {
 
     styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
   }, [scroll]);
+
+  function onWindowResize() {
+    if (letterMarks && letterMarks.length) {
+      clearCurOrPrevErrorChar(true);
+    }
+    console.log("resizing...");
+  }
 
   return (
     <div
