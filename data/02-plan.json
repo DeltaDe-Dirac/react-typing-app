@@ -5,12 +5,12 @@
     {
       "id": 0,
       "name": "Human Twins",
-      "text": "Do you get the feeling that there are more twins around these days than there used to be? No? Well, you should, because according to a new study in the journal Human Reproduction, the \"twinning rate\" has increased by one-third since the '80s—up from 9 to 12 twins per 1,000 deliveries. Currently that adds up to about 1.6 million twins born each year across the world—meaning one out of every 42 babies is a twin. Helping drive this is the increasing use of medically assisted reproduction, and the delay in childbearing (twinning has been found to increase with a mother's age)."
+      "text": "Do you get the feeling that there are more twins around these days than there used to be? No? Well, you should, because according to a new study in the journal Human Reproduction, the \"twinning rate\" has increased by one-third since the '80s-up from 9 to 12 twins per 1,000 deliveries. Currently that adds up to about 1.6 million twins born each year across the world-meaning one out of every 42 babies is a twin. Helping drive this is the increasing use of medically assisted reproduction, and the delay in childbearing (twinning has been found to increase with a mother's age)."
     },
     {
       "id": 1,
       "name": "Narwhal's Tusk",
-      "text": "Much like the rings of a tree can tell you its age and provide clues about the life it has lived, so too does the long tusk of the narwhal. Recent research led by a bioscience professor at Denmark's Aarhus University has shown that this peculiar arctic whale adds a layer to its distinctive tusk each year. And not only do these layers offer insight into the age of the narwhal (they've been known to live up to 50 years) but the conditions in which they lived—such as level of pollution, temperature levels, and even what their diet consisted of. You are what you eat!"
+      "text": "Much like the rings of a tree can tell you its age and provide clues about the life it has lived, so too does the long tusk of the narwhal. Recent research led by a bioscience professor at Denmark's Aarhus University has shown that this peculiar arctic whale adds a layer to its distinctive tusk each year. And not only do these layers offer insight into the age of the narwhal (they've been known to live up to 50 years) but the conditions in which they lived-such as level of pollution, temperature levels, and even what their diet consisted of. You are what you eat!"
     },
     {
       "id": 2,
@@ -20,7 +20,7 @@
     {
       "id": 3,
       "name": "Sea Slugs",
-      "text": "It sounds like something out of a horror film, but it's all too real: The Elysia cf. marginata, a type of sea slug, has been found to not only survive decapitation, but to be able to grow a whole new body from it. Ecologists at Nara Women's University in Japan found that, a few hours after having their heads severed from their bodies, the snails' heads were already nibbling on algae as if nothing had happened. In about 20 days, one-third of the sea slugs studied had fully grown back their bodies—heart included."
+      "text": "It sounds like something out of a horror film, but it's all too real: The Elysia cf. marginata, a type of sea slug, has been found to not only survive decapitation, but to be able to grow a whole new body from it. Ecologists at Nara Women's University in Japan found that, a few hours after having their heads severed from their bodies, the snails' heads were already nibbling on algae as if nothing had happened. In about 20 days, one-third of the sea slugs studied had fully grown back their bodies-heart included."
     },
     {
       "id": 4,
@@ -40,7 +40,7 @@
     {
       "id": 7,
       "name": "Human Body Glows",
-      "text": "It might be hard to see with your naked eye, but everyone you pass by every day is literally glowing. The human body emits a small quantity of visible light (\"visible\" in the technical sense—the illumination is about 1,000 times less intense than levels of light that we would actually be able to see). Researchers in Japan used a special camera to track this glow and found that it fluctuates throughout the day, with the body emitting its lowest levels of light around 10 a.m. and highest at around 4 p.m., a rhythm the scientists attribute to the changes in one's metabolism."
+      "text": "It might be hard to see with your naked eye, but everyone you pass by every day is literally glowing. The human body emits a small quantity of visible light (\"visible\" in the technical sense-the illumination is about 1,000 times less intense than levels of light that we would actually be able to see). Researchers in Japan used a special camera to track this glow and found that it fluctuates throughout the day, with the body emitting its lowest levels of light around 10 a.m. and highest at around 4 p.m., a rhythm the scientists attribute to the changes in one's metabolism."
     },
     {
       "id": 8,
@@ -50,7 +50,7 @@
     {
       "id": 9,
       "name": "First Computer",
-      "text": "These days, supercomputers are everywhere—and they really don't need much space at all. Have an Xbox One posted up in your living room? That's a supercomputer. A laptop-tablet hybrid in your bag? That's a supercomputer, too. (Don't even get us started on the thing in your pocket…) But when supercomputers first came around, they needed much, much more space. Just take a look at the world's first one: The Electronic Numerical Integrator and Computer (ENIAC). Originally built at the University of Pennsylvania's School of Engineering, in 1946, ENIAC weighed 60,000 pounds and took up a room larger than most studio apartments (1,500 square feet). Shortly after construction, ENIAC was sent off to the military, where it was used to calculate ballistic trajectories (translation: launch missiles) with frightening accuracy. Today, computer experts at Penn credit ENIAC with heralding in the \"dawn of the information age.\""
+      "text": "These days, supercomputers are everywhere-and they really don't need much space at all. Have an Xbox One posted up in your living room? That's a supercomputer. A laptop-tablet hybrid in your bag? That's a supercomputer, too. (Don't even get us started on the thing in your pocket…) But when supercomputers first came around, they needed much, much more space. Just take a look at the world's first one: The Electronic Numerical Integrator and Computer (ENIAC). Originally built at the University of Pennsylvania's School of Engineering, in 1946, ENIAC weighed 60,000 pounds and took up a room larger than most studio apartments (1,500 square feet). Shortly after construction, ENIAC was sent off to the military, where it was used to calculate ballistic trajectories (translation: launch missiles) with frightening accuracy. Today, computer experts at Penn credit ENIAC with heralding in the \"dawn of the information age.\""
     }
   ]
 }
