@@ -55,7 +55,7 @@ export default function LessonCards({ planName, lessons }) {
 
   return (
     <Row className="c-lessonCardRow">
-      {lessons && lessons.length > 0 ? lessons.map((lesson) => createLessonCard(lesson)) : "LOADING"}
+      {lessons ? lessons.map((lesson) => createLessonCard(lesson)) : <div className="loader">LOADING...</div>}
     </Row>
   );
 }

@@ -66,7 +66,7 @@ export default function PortalPage({ isLoggedIn, setIsLoggedIn, isSignOut, setIs
                 <h1>{isLoggedIn ? "Hello logged in user" : "Hello anonymous user"}</h1>
                 <LessonCards
                   planName={isValidPlanArgument() ? jsonPlans[planArg].filename : ""}
-                  lessons={lessons ? lessons : []}
+                  lessons={lessons && lessons.length > 0 ? lessons : null}
                 />
               </Container>
             </div>
