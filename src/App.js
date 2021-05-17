@@ -6,6 +6,7 @@ import { HashRouter, Switch, Route } from "react-router-dom";
 // import { fab } from "@fortawesome/free-brands-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
+import { far } from "@fortawesome/free-regular-svg-icons";
 
 import LandingPage from "./pages/LandingPage/LandingPage";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
@@ -15,7 +16,7 @@ import { FirebaseContext } from "./utils/firebase";
 import "firebase/analytics";
 import "firebase/auth";
 
-library.add(fas);
+library.add(fas, far);
 export default function App() {
   const firebase = useContext(FirebaseContext);
   const [isLoggedIn, setIsLoggedIn] = useState(false);

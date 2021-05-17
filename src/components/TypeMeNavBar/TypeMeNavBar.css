@@ -1,3 +1,7 @@
+.c-typemeNavBarWrap {
+  border-bottom: 1px solid pink;
+}
+
 /* MAIN FIXED NAVABAR */
 .c-typemeNavBarWrap .fixedMenu {
   padding-bottom: 0px;

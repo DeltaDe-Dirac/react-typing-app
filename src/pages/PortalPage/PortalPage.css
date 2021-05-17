@@ -1,3 +1,9 @@
 .p-portalPage {
   padding-top: 60px;
 }
+
+.lessonsWrapper,
+.plansWrapper {
+  background-color: #45484b;
+  min-height: 100vh;
+}

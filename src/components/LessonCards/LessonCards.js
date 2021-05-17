@@ -3,6 +3,7 @@ import "./LessonCards.css";
 
 import { Card, Col, Row } from "react-bootstrap";
 import { Redirect, useRouteMatch } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function LessonCards({ planName, lessons }) {
   const { url } = useRouteMatch();
@@ -19,9 +20,22 @@ export default function LessonCards({ planName, lessons }) {
         >
           <Card.Header>{id + 1}</Card.Header>
           <Card.Body>
-            <Card.Title>{name}</Card.Title>
+            <Card.Title>
+              <div className="lessonTitle">{name}</div>
+              <FontAwesomeIcon icon={["fas", "keyboard"]} size="4x" />
+            </Card.Title>
           </Card.Body>
-          <Card.Footer className="text-muted">footer text</Card.Footer>
+          <Card.Footer>
+            <span>
+              <FontAwesomeIcon icon={["fas", "star"]} />
+            </span>
+            <span>
+              <FontAwesomeIcon icon={["fas", "star-half-alt"]} size="2x" />
+            </span>
+            <span>
+              <FontAwesomeIcon icon={["far", "star"]} />
+            </span>
+          </Card.Footer>
         </Card>
       </Col>
     );
@@ -39,5 +53,9 @@ export default function LessonCards({ planName, lessons }) {
     return <Redirect push to={`${url}/${link}`} />;
   }
 
-  return <Row className="c-lessonCardRow">{lessons.map((lesson) => createLessonCard(lesson))}</Row>;
+  return (
+    <Row className="c-lessonCardRow">
+      {lessons && lessons.length > 0 ? lessons.map((lesson) => createLessonCard(lesson)) : "LOADING"}
+    </Row>
+  );
 }

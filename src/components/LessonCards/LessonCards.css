@@ -1,21 +1,54 @@
 .c-lessonCardRow .c-lessonCard {
-  height: 170px;
-  width: 170px;
+  height: 220px;
+  width: 250px;
   margin-bottom: 20px;
   cursor: pointer;
-  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.43);
+  border: 1px solid orangered;
+}
+
+.c-lessonCardRow .c-lessonCard .card-header {
+  font-family: "New Tegomin", serif;
+  /* background-color: #454c53; */
+  background-color: #343a40;
+  color: salmon;
+  font-weight: bold;
+  font-size: 2em;
+  padding: 0;
+  border-bottom: transparent;
+}
+
+.c-lessonCardRow .c-lessonCard .card-body .lessonTitle {
+  font-family: "Poppins", sans-serif;
+  color: skyblue;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.c-lessonCardRow .c-lessonCard .card-body {
+  background-color: #343a40;
+  color: salmon;
+  padding: 0;
+}
+
+.c-lessonCardRow .c-lessonCard .card-footer {
+  font-family: "Poppins", sans-serif;
+  background-color: #343a40;
+  color: yellow;
+  border-top: transparent;
 }
 
 .c-lessonCardRow .c-lessonCard:hover {
   animation: moveup 1s;
-  box-shadow: 0px 10px 15px -1px rgba(0, 0, 0, 0.62);
+  box-shadow: 0px 0px 21px 5px orangered;
 }
 
 @keyframes moveup {
   from {
-    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.43);
+    box-shadow: 0px 0px 1px -1px orangered;
   }
   to {
-    box-shadow: 0px 10px 15px -1px rgba(0, 0, 0, 0.62);
+    box-shadow: 0px 0px 21px 5px orangered;
   }
 }
+
+/* 343a40 */

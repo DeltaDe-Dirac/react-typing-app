@@ -6,6 +6,7 @@
 
 .c-portalNavBar {
   align-items: baseline;
+  border-bottom: 1px solid aquamarine;
 }
 
 .c-portalNavBar .navbar-brand {

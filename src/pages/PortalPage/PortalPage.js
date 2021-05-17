@@ -61,20 +61,24 @@ export default function PortalPage({ isLoggedIn, setIsLoggedIn, isSignOut, setIs
           </Route>
           <Route exact path={`${path}/:planArg`}>
             <PortalNavBar isLoggedIn={isLoggedIn} setIsSignOut={setIsSignOut} setShowAuth={setShowAuth} />
-            <Container className="p-portalPage">
-              <h1>{isLoggedIn ? "Hello logged in user" : "Hello anonymous user"}</h1>
-              <LessonCards
-                planName={isValidPlanArgument() ? jsonPlans[planArg].filename : ""}
-                lessons={lessons ? lessons : []}
-              />
-            </Container>
+            <div className="lessonsWrapper">
+              <Container className="p-portalPage">
+                <h1>{isLoggedIn ? "Hello logged in user" : "Hello anonymous user"}</h1>
+                <LessonCards
+                  planName={isValidPlanArgument() ? jsonPlans[planArg].filename : ""}
+                  lessons={lessons ? lessons : []}
+                />
+              </Container>
+            </div>
           </Route>
           <Route exact path={`${url}`}>
             <PortalNavBar isLoggedIn={isLoggedIn} setIsSignOut={setIsSignOut} setShowAuth={setShowAuth} />
-            <Container className="p-portalPage">
-              <h1>{isLoggedIn ? "Hello logged in user" : "Hello anonymous user"}</h1>
-              <PlanCards jsonPlans={jsonPlans} />
-            </Container>
+            <div className="lessonsWrapper">
+              <Container className="p-portalPage">
+                <h1>{isLoggedIn ? "Hello logged in user" : "Hello anonymous user"}</h1>
+                <PlanCards jsonPlans={jsonPlans} />
+              </Container>
+            </div>
           </Route>
         </Switch>
       </HashRouter>
