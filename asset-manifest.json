@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/react-typing-app/static/css/main.0e09efdb.chunk.css",
-    "main.js": "/react-typing-app/static/js/main.374ec850.chunk.js",
-    "main.js.map": "/react-typing-app/static/js/main.374ec850.chunk.js.map",
+    "main.js": "/react-typing-app/static/js/main.d8e72a49.chunk.js",
+    "main.js.map": "/react-typing-app/static/js/main.d8e72a49.chunk.js.map",
     "runtime-main.js": "/react-typing-app/static/js/runtime-main.e360d96f.js",
     "runtime-main.js.map": "/react-typing-app/static/js/runtime-main.e360d96f.js.map",
     "static/css/2.4c97ca4f.chunk.css": "/react-typing-app/static/css/2.4c97ca4f.chunk.css",
@@ -29,6 +29,6 @@
     "static/css/2.4c97ca4f.chunk.css",
     "static/js/2.4f73a325.chunk.js",
     "static/css/main.0e09efdb.chunk.css",
-    "static/js/main.374ec850.chunk.js"
+    "static/js/main.d8e72a49.chunk.js"
   ]
 }
