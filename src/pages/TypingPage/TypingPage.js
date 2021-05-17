@@ -39,6 +39,7 @@ export default function TypingPage({ typeMe }) {
     step: 56,
     animName: "lineUp1",
     isUp: false,
+    last: null,
   });
   const { width, height, ref } = useResizeDetector();
 
@@ -305,6 +306,7 @@ export default function TypingPage({ typeMe }) {
 
     if (wordsPerLine) {
       setLines(wordsPerLine);
+      setScroll((s) => ({ ...s, last: wordsPerLine.length - 1 }));
     }
   }, [width, height, wordsArr]);
 
@@ -359,43 +361,36 @@ export default function TypingPage({ typeMe }) {
   }
 
   function handleScrolling(lineNum) {
-    if (
-      (!scroll.isUp && lineNum - scroll.lineNum === -1 && scroll.lineNum > 4) ||
-      (scroll.isUp && lineNum - scroll.lineNum === 1 && lineNum > 3)
-    ) {
-      // console.log("line dif = +1/-1", lineNum, scroll.lineNum, scroll.isUp);
-      [scroll.from, scroll.to] = [scroll.to, scroll.from];
-      scroll.lineNum = lineNum;
-      scroll.animName = scroll.animName === "lineUp1" ? "lineUp2" : "lineUp1";
-      scroll.isUp = !scroll.isUp;
-      setScroll({ ...scroll });
-    } else if (lineNum - scroll.lineNum === 2 && lineNum > 3) {
+    // console.log(scroll.lineNum, lineNum, scroll);
+    if (scroll.lineNum < 4 && lineNum < 4) {
+      scroll.from = 0;
+      scroll.to = 0;
+      return;
+    }
+
+    if (lineNum === scroll.last) {
+      return;
+    }
+
+    if (Math.abs(lineNum - scroll.lineNum) >= 2) {
+      const direction = lineNum - scroll.lineNum;
       // console.log("line dif = 2", lineNum);
       scroll.from = scroll.to;
-      scroll.to = -2 * scroll.step + scroll.to;
+      scroll.to = -(lineNum - scroll.lineNum) * scroll.step + scroll.to;
       scroll.lineNum = lineNum;
       scroll.animName = scroll.animName === "lineUp1" ? "lineUp2" : "lineUp1";
-      scroll.isUp = false;
+      scroll.isUp = direction ? false : true;
       setScroll({ ...scroll });
-    } else if (lineNum - scroll.lineNum === -2 && scroll.lineNum > 4) {
-      console.log("line dif = -1", lineNum);
-      scroll.from = scroll.to;
-      scroll.to = scroll.to + 2 * scroll.step;
-      scroll.lineNum = lineNum;
-      scroll.animName = scroll.animName === "lineUp1" ? "lineUp2" : "lineUp1";
-      scroll.isUp = true;
-      setScroll({ ...scroll });
+      // console.log("hs scrolling down", scroll);
     }
   }
 
   useEffect(() => {
-    if (scroll.lineNum > 3) {
-      console.log("scrolling down", scroll);
-      let styleSheet = document.styleSheets[0];
-      const from = scroll.from + "px";
-      const to = scroll.to + "px";
+    let styleSheet = document.styleSheets[0];
+    const from = scroll.from + "px";
+    const to = scroll.to + "px";
 
-      let keyframes = `@keyframes ${scroll.animName} {
+    let keyframes = `@keyframes ${scroll.animName} {
       from {
         margin-top: ${from};
       }
@@ -404,11 +399,8 @@ export default function TypingPage({ typeMe }) {
       }
     }`;
 
-      styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
-    }
+    styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
   }, [scroll]);
-
-  // const style = { animation: `${animName} 2s`, marginTop: `${scroll.to}px` };
 
   return (
     <div
@@ -440,7 +432,9 @@ export default function TypingPage({ typeMe }) {
       <Container className="typeMeContainer" fluid="xl" ref={ref}>
         <div
           style={
-            scroll.lineNum > 3 ? { animation: `${scroll.animName} 2s`, marginTop: `${scroll.to}px` } : { marginTop: 0 }
+            scroll.lineNum >= 3
+              ? { animation: `${scroll.animName} 1s`, marginTop: `${scroll.to}px` }
+              : { animation: "top 1s", marginTop: 0 }
           }
           className={"typeMeDiv"}
           id="typeMeDiv"
