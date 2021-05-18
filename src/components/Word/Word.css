@@ -2,14 +2,15 @@
 .errorChar {
   border: 2px solid black;
   border-radius: 5px;
-  width: 35px;
-  min-width: 35px;
+  width: 32px;
+  min-width: 32px;
   line-height: 1.5em;
   margin: 2px -8.5px;
   font-size: 2em;
   text-align: center;
   display: inline-block;
   white-space: pre;
+  font-family: "Ubuntu Mono", monospace, "Grandstander";
 }
 
 .wordsSpan {

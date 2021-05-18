@@ -283,7 +283,7 @@ export default function TypingPage({ typeMe }) {
   // ---------------------------------------------------------------------------------------
 
   const handleLines = useCallback(() => {
-    const letterSpanWidth = 36;
+    const letterSpanWidth = 30;
     // ----------------------------
     if (wordsArr() === null) {
       return null;
@@ -303,6 +303,10 @@ export default function TypingPage({ typeMe }) {
         spanRectangles.push(rect);
       }
     }
+    if (spanRectangles.length === 0) {
+      console.warn("cannot determine span rectangles");
+    }
+    // console.log(spanRectangles);
 
     let curLinePos = 0;
     const breakingLineIndex = [];
@@ -359,15 +363,15 @@ export default function TypingPage({ typeMe }) {
     }
 
     let linesOfWords = [];
-    if (lines === null) {
-      // console.log("def lines");
+    if (lines === null || lines.length === 0) {
+      // console.info("default lines rendering");
       linesOfWords = arrOfWords.map((word, index) => (
         <span key={`wordSpan-${index}`} className="lineSpan">
           <Word word={word} wordNum={index} letterMarks={letterMarks[index]} />
         </span>
       ));
     } else {
-      // console.log("real lines");
+      // console.log("words per line rendering");
       linesOfWords = [];
       let k = 0;
       for (let i = 0; i < lines.length; ++i) {
