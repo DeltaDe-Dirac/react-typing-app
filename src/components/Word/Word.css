@@ -49,7 +49,7 @@
 
 .wordsSpan .errorChar {
   position: relative;
-  right: 17.5px;
+  right: 15px;
   opacity: 0;
   display: hidden;
 }
