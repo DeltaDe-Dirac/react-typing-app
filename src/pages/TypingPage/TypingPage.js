@@ -41,7 +41,21 @@ export default function TypingPage({ typeMe }) {
     isUp: false,
     last: null,
   });
-  const [isFinished, setIsFinished] = useState(false);
+  const [typeState, setTypeState] = useState({
+    isStarted: false,
+    isPaused: false,
+    isFinished: false,
+  });
+  const [stats, setStats] = useState({
+    charCount: 0,
+    correct: 0,
+    fixed: 0,
+    wrong: 0,
+    timeSpent: 0,
+    timeSpentTyping: 0,
+    pauseAfter: 10,
+  });
+
   const onResize = useCallback(() => onWindowResize());
   const { width, height, ref } = useResizeDetector({ onResize });
 
@@ -96,9 +110,73 @@ export default function TypingPage({ typeMe }) {
   }, [settings]);
   // ---------------------------------------------------------------------------------------
 
+  useEffect(() => {
+    let perfomance = null;
+
+    if (!typeState.isFinished && typeState.isStarted) {
+      perfomance = setInterval(function () {
+        if (!typeState.isPaused) {
+          setStats((s) => ({ ...s, timeSpent: s.timeSpent + 1 }));
+        }
+        // else {
+        //   console.log("counter paused");
+        // }
+      }, 1000);
+    }
+
+    return () => {
+      if (perfomance !== null) {
+        clearInterval(perfomance);
+        // console.log("cleared timeout");
+      }
+    };
+  }, [typeState]);
+
+  useEffect(() => {
+    if (stats.timeSpent - stats.timeSpentTyping > stats.pauseAfter) {
+      setTypeState((state) => ({ ...state, isPaused: true }));
+    }
+  }, [stats]);
+  // ---------------------------------------------------------------------------------------
+
+  function collectPerfomance(keyTyped) {
+    if (keyTyped === "correct") {
+      stats.correct += 1;
+      stats.charCount += 1;
+    } else if (keyTyped === "fixed") {
+      stats.fixed += 1;
+      stats.charCount += 1;
+    } else if (keyTyped === "wrong") {
+      stats.wrong += 1;
+      stats.charCount += 1;
+    } else if (keyTyped === "d-correct") {
+      stats.charCount -= 1;
+      stats.correct -= 1;
+    } else if (keyTyped === "d-fixed") {
+      stats.charCount -= 1;
+      stats.fixed -= 1;
+    } else if (keyTyped === "d-wrong") {
+      stats.charCount -= 1;
+      stats.wrong -= 1;
+    }
+
+    stats.timeSpentTyping = stats.timeSpent;
+
+    if (typeState.isPaused) {
+      setTypeState({ ...typeState, isPaused: false });
+    }
+
+    setStats({ ...stats });
+    // console.log(stats);
+  }
+
   function handleTypingKey(e) {
-    if (isFinished) {
+    if (typeState.isFinished) {
       return;
+    }
+
+    if (!typeState.isStarted) {
+      setTypeState({ ...typeState, isStarted: true, isPaused: false });
     }
 
     let curErrorCounter = errorCounter;
@@ -150,6 +228,8 @@ export default function TypingPage({ typeMe }) {
     if (isCorrectlyTyped) {
       const letterMark = letterMarks[wordIndex][letterIndex];
       if (!letterMark.isCorrect && !letterMark.isFixed && !letterMark.isError) {
+        collectPerfomance("correct");
+
         letterMarks[wordIndex][letterIndex] = {
           isClean: false,
           isCorrect: true,
@@ -160,6 +240,8 @@ export default function TypingPage({ typeMe }) {
           class: "",
         };
       } else if (letterMark.isError || letterMark.isFixed) {
+        collectPerfomance("fixed");
+
         letterMarks[wordIndex][letterIndex] = {
           isClean: false,
           isCorrect: false,
@@ -171,6 +253,8 @@ export default function TypingPage({ typeMe }) {
         };
       }
     } else {
+      collectPerfomance("wrong");
+
       letterMarks[wordIndex][letterIndex] = {
         isClean: false,
         isCorrect: false,
@@ -190,7 +274,7 @@ export default function TypingPage({ typeMe }) {
     const nextPosition = getNextPosition();
     if (nextPosition === null) {
       // stop the lesson here
-      setIsFinished(true);
+      setTypeState({ ...typeState, isFinished: true });
       playSound(finishLesson);
       setLetterIndex(letterIndex + 1);
       return;
@@ -207,6 +291,15 @@ export default function TypingPage({ typeMe }) {
       return;
     }
     const curLetterMark = letterMarks[prevPosition.wordIdx][prevPosition.letterIdx];
+
+    if (curLetterMark.isCorrect) {
+      collectPerfomance("d-correct");
+    } else if (curLetterMark.isFixed) {
+      collectPerfomance("d-fixed");
+    } else if (curLetterMark.isError) {
+      collectPerfomance("d-wrong");
+    }
+
     [
       curLetterMark.isClean,
       curLetterMark.isCorrect,
@@ -446,7 +539,7 @@ export default function TypingPage({ typeMe }) {
     if (letterMarks && letterMarks.length) {
       clearCurOrPrevErrorChar(true);
     }
-    console.log("resizing...");
+    // console.log("resizing...");
   }
 
   return (
@@ -479,7 +572,7 @@ export default function TypingPage({ typeMe }) {
       <Container className="typeMeContainer" fluid="xl" ref={ref}>
         <div
           style={
-            !isFinished && scroll.lineNum >= 3
+            !typeState.isFinished && scroll.lineNum >= 3
               ? { animation: `${scroll.animName} 1s`, marginTop: `${scroll.to}px` }
               : { animation: "top 1s", marginTop: 0 }
           }
@@ -489,7 +582,7 @@ export default function TypingPage({ typeMe }) {
           {createLinesOfWords()}
         </div>
       </Container>
-      <Container className="progressContainer" fluid="xl">
+      <Container className="statsContainer" fluid="xl">
         <div className="progress">
           <div
             style={{ width: `${wordsArr() ? Math.round((wordIndex / (wordsArr().length - 1)) * 100) : 0}%` }}
@@ -499,6 +592,22 @@ export default function TypingPage({ typeMe }) {
             aria-valuemin="0"
             aria-valuemax="100"
           ></div>
+        </div>
+        <div className={settings.stats ? "stats" : "stats hide"}>
+          <div className="speed">
+            <h6>Speed</h6>
+            <h1>
+              {stats.timeSpent > 0 ? Math.floor(((stats.correct + stats.fixed) / 5 / stats.timeSpent) * 60) : 0}{" "}
+              <span>WPM</span>
+            </h1>
+          </div>
+          <div className="accuracy">
+            <h6>Accuracy</h6>
+            <h1>
+              {stats.charCount > 0 ? Math.floor(((stats.correct + stats.fixed) / stats.charCount) * 100) : 100}{" "}
+              <span>%</span>
+            </h1>
+          </div>
         </div>
       </Container>
     </div>

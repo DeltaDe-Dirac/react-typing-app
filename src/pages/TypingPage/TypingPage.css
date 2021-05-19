@@ -14,14 +14,49 @@
   padding-left: 10px;
 }
 
-.p-typingPageWrap .progressContainer {
+.p-typingPageWrap .statsContainer {
   padding: 0 50px 0 5px;
 }
-.p-typingPageWrap .progressContainer .progress {
+.p-typingPageWrap .statsContainer .progress {
   height: 2px;
   background-color: gainsboro;
 }
 
-.p-typingPageWrap .progressContainer .progress .progress-bar {
+.p-typingPageWrap .statsContainer .progress .progress-bar {
   background-color: orangered;
+}
+
+.p-typingPageWrap .statsContainer .stats.hide {
+  display: none;
+}
+
+.p-typingPageWrap .statsContainer .stats {
+  display: flex;
+  justify-content: flex-start;
+  padding: 20px 0px 0 20px;
+  color: rgb(113, 100, 197);
+}
+
+.p-typingPageWrap .statsContainer .stats .speed {
+  padding-right: 30px;
+}
+
+.p-typingPageWrap .statsContainer .stats h6 {
+  color: lightgrey;
+}
+
+.p-typingPageWrap .statsContainer .stats .speed > h1 > span {
+  color: lightgrey;
+  font-size: 0.3em;
+  position: relative;
+  bottom: 20px;
+  right: 10px;
+}
+
+.p-typingPageWrap .statsContainer .stats .accuracy > h1 > span {
+  color: lightgrey;
+  font-size: 0.4em;
+  position: relative;
+  bottom: 18px;
+  right: 10px;
 }
