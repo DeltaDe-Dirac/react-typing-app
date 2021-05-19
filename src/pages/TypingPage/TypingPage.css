@@ -60,3 +60,13 @@
   bottom: 18px;
   right: 10px;
 }
+
+#pause-overlay > .tooltip-inner {
+  font-weight: bolder;
+  color: aliceblue;
+  background-color: rgb(113, 100, 197);
+}
+
+#pause-overlay > .arrow::before {
+  border-bottom-color: rgb(113, 100, 197);
+}

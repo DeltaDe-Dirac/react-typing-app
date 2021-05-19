@@ -1,7 +1,7 @@
-import { useState, createRef, useEffect, useCallback } from "react";
+import { useState, createRef, useEffect, useCallback, useRef } from "react";
 import "./TypingPage.css";
 
-import { Container } from "react-bootstrap";
+import { Container, Overlay, Tooltip } from "react-bootstrap";
 import TypeMeNavBar from "../../components/TypeMeNavBar/TypeMeNavBar";
 import Word from "../../components/Word/Word";
 import { isBackSpace, isAlphanumeric } from "../../utils/keycodes";
@@ -542,6 +542,7 @@ export default function TypingPage({ typeMe }) {
     // console.log("resizing...");
   }
 
+  const targetTooltip = useRef(null);
   return (
     <div
       className="p-typingPageWrap"
@@ -594,13 +595,24 @@ export default function TypingPage({ typeMe }) {
           ></div>
         </div>
         <div className={settings.stats ? "stats" : "stats hide"}>
-          <div className="speed">
+          <div className="speed" ref={targetTooltip}>
             <h6>Speed</h6>
             <h1>
               {stats.timeSpent > 0 ? Math.floor(((stats.correct + stats.fixed) / 5 / stats.timeSpent) * 60) : 0}{" "}
               <span>WPM</span>
             </h1>
           </div>
+          <Overlay
+            target={targetTooltip.current}
+            show={(typeState.isPaused && settings.stats) || !typeState.isStarted}
+            placement="top"
+          >
+            {(props) => (
+              <Tooltip id="pause-overlay" {...props}>
+                {typeState.isPaused && settings.stats ? "PAUSED" : "START TYPING"}
+              </Tooltip>
+            )}
+          </Overlay>
           <div className="accuracy">
             <h6>Accuracy</h6>
             <h1>
