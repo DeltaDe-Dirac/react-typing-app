@@ -27,8 +27,9 @@ export default function TypingPage({ typeMe }) {
     sound: true,
     voice: false,
     stats: true,
-    blockOnError: false,
-    error: "error-1",
+    blockOnError: true,
+    error: "error-3",
+    word: "word-3",
   });
   const [errorCounter, setErrorCounter] = useState(0);
   const [lines, setLines] = useState(null);
@@ -118,16 +119,12 @@ export default function TypingPage({ typeMe }) {
         if (!typeState.isPaused) {
           setStats((s) => ({ ...s, timeSpent: s.timeSpent + 1 }));
         }
-        // else {
-        //   console.log("counter paused");
-        // }
       }, 1000);
     }
 
     return () => {
       if (perfomance !== null) {
         clearInterval(perfomance);
-        // console.log("cleared timeout");
       }
     };
   }, [typeState]);
@@ -138,6 +135,36 @@ export default function TypingPage({ typeMe }) {
     }
   }, [stats]);
   // ---------------------------------------------------------------------------------------
+  function voiceOver() {
+    const numOfWords = Number(settings.word.split("-")[1]);
+    if (settings.voice) {
+      const arrayOfWords = wordsArr();
+      const nextPos = getNextPosition();
+
+      if (
+        // (wordIndex === 0 && letterIndex === 0) ||
+        nextPos &&
+        arrayOfWords[nextPos.wordIdx][nextPos.letterIdx] === " " &&
+        (wordIndex + 1) % numOfWords === 0
+      ) {
+        let message = "";
+        const wordsLimit =
+          nextPos.wordIdx + 1 + numOfWords < arrayOfWords.length
+            ? nextPos.wordIdx + 1 + numOfWords
+            : arrayOfWords.length;
+
+        for (let i = nextPos.wordIdx + 1; i < wordsLimit; ++i) {
+          message += arrayOfWords[i];
+        }
+
+        let msg = new SpeechSynthesisUtterance();
+        // console.log(window.speechSynthesis.getVoices());
+        msg.text = message;
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(msg);
+      }
+    }
+  }
 
   function collectPerfomance(keyTyped) {
     if (keyTyped === "correct") {
@@ -181,6 +208,7 @@ export default function TypingPage({ typeMe }) {
 
     let curErrorCounter = errorCounter;
     if (isAlphanumeric(e.keyCode)) {
+      voiceOver();
       clearCurOrPrevErrorChar(false);
       if (wordsArr()[wordIndex][letterIndex] === e.key) {
         playSound(correctType);

@@ -67,28 +67,28 @@
 /* --------------------------------------------------------------------------- */
 
 /* NAVIGATION TABS ERROR */
-.c-typemeNavBarWrap .blockOnError.hide {
+.c-typemeNavBarWrap .numSelectMenu.hide {
   display: none;
 }
 
-.c-typemeNavBarWrap .blockOnError .nav-item {
+.c-typemeNavBarWrap .numSelectMenu .nav-item {
   margin: 0 7px;
   font-size: 1.3em;
   padding-bottom: 5px;
 }
 
-.c-typemeNavBarWrap .blockOnError.nav-tabs .nav-link:not(.active) {
+.c-typemeNavBarWrap .numSelectMenu.nav-tabs .nav-link:not(.active) {
   border: 1px solid transparent;
 }
 
-.c-typemeNavBarWrap .blockOnError.nav-tabs .nav-link:not(.active):hover {
+.c-typemeNavBarWrap .numSelectMenu.nav-tabs .nav-link:not(.active):hover {
   border-bottom: 1px solid pink;
 }
 
-.c-typemeNavBarWrap .blockOnError.nav-tabs .nav-link:focus,
-.c-typemeNavBarWrap .blockOnError.nav-tabs .nav-link:active,
-.c-typemeNavBarWrap .blockOnError.nav-tabs .nav-item.show .nav-link,
-.c-typemeNavBarWrap .blockOnError.nav-tabs .nav-link.active {
+.c-typemeNavBarWrap .numSelectMenu.nav-tabs .nav-link:focus,
+.c-typemeNavBarWrap .numSelectMenu.nav-tabs .nav-link:active,
+.c-typemeNavBarWrap .numSelectMenu.nav-tabs .nav-item.show .nav-link,
+.c-typemeNavBarWrap .numSelectMenu.nav-tabs .nav-link.active {
   border: 1px solid #343a40;
   border-bottom: 1px solid pink;
 }

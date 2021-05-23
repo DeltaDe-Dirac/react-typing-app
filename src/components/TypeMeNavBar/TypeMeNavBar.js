@@ -15,7 +15,8 @@ export default function TypeMeNavBar({
   header,
 }) {
   const hist = useHistory();
-  const keepActive = ["error-1", "error-2", "error-3"];
+  const blockSelection = ["error-1", "error-2", "error-3"];
+  const wordSelection = ["word-1", "word-3", "word-5"];
   const [floatMenu, toggleFloatMenu] = useState(null);
   const [keyEvent, setKeyEvent] = useState(null);
   // console.log(settings);
@@ -23,15 +24,20 @@ export default function TypeMeNavBar({
     // e.preventDefault();
     // console.log(e);
     if (e.type === "click" && !isBlockedKey()) {
-      floatMenu && eventKey === floatMenu && !hideMe && !keepActive.includes(eventKey)
+      floatMenu &&
+      eventKey === floatMenu &&
+      !hideMe &&
+      !(blockSelection.includes(eventKey) || wordSelection.includes(eventKey))
         ? toggleFloatMenu(null)
-        : toggleFloatMenu(keepActive.includes(eventKey) ? "settings" : eventKey);
+        : toggleFloatMenu(
+            blockSelection.includes(eventKey) ? "settings" : wordSelection.includes(eventKey) ? "sound" : eventKey
+          );
 
       if (eventKey === "restart") {
         hist.go(0);
       }
 
-      if (keepActive.includes(eventKey) && settings.error !== eventKey) {
+      if (blockSelection.includes(eventKey) && settings.error !== eventKey) {
         setSettings({ ...settings, error: eventKey });
         const prevErrorLimit = parseInt(settings.error.split("-")[1]);
         const newErrorLimit = parseInt(eventKey.split("-")[1]);
@@ -40,6 +46,11 @@ export default function TypeMeNavBar({
           setErrorCounter(newErrorLimit);
         }
       }
+
+      if (wordSelection.includes(eventKey) && settings.word !== eventKey) {
+        setSettings({ ...settings, word: eventKey });
+      }
+
       resetHideMe();
     }
     setKeyEvent(null);
@@ -117,7 +128,7 @@ export default function TypeMeNavBar({
               id="stats"
               tabIndex="-1"
               onChange={(e) => setSettings({ ...settings, stats: e.target.checked })}
-              checked={settings.stats === "true" || settings.stats === true ? true : false}
+              checked={settings.stats}
             ></input>
           </div>
           <hr />
@@ -137,8 +148,7 @@ export default function TypeMeNavBar({
           <Nav
             fill
             variant="tabs"
-            // defaultChecked="error-1"
-            className={"blockOnError ".concat(settings.blockOnError ? "" : "hide")}
+            className={"numSelectMenu ".concat(settings.blockOnError ? "" : "hide")}
             onSelect={(eventKey, e) => handleSelect(eventKey, e)}
             tabIndex="-1"
           >
@@ -194,6 +204,29 @@ export default function TypeMeNavBar({
               checked={settings.voice}
             ></input>
           </div>
+          <Nav
+            fill
+            variant="tabs"
+            className={"numSelectMenu ".concat(settings.voice ? "" : "hide")}
+            onSelect={(eventKey, e) => handleSelect(eventKey, e)}
+            tabIndex="-1"
+          >
+            <Nav.Item>
+              <Nav.Link eventKey="word-1" tabIndex="-1" active={settings.word === "word-1"}>
+                One
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="word-3" tabIndex="-1" active={settings.word === "word-3"}>
+                Three
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="word-5" tabIndex="-1" active={settings.word === "word-5"}>
+                Five
+              </Nav.Link>
+            </Nav.Item>
+          </Nav>
         </Nav>
       </Navbar>
     </div>

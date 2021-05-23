@@ -112,7 +112,7 @@ export default function LoginForm({ isLoginOrSignup, isLoggedIn, setIsLoggedIn, 
           <Form.Control.Feedback type="invalid">Required Field</Form.Control.Feedback>
         </Form.Group>
         <Button type="submit" variant="outline-success">
-          {isLoginOrSignup ? "Sign In" : "Sing Up"}
+          {isLoginOrSignup ? "Sign In" : "Sign Up"}
         </Button>
       </Form.Row>
     </Form>
