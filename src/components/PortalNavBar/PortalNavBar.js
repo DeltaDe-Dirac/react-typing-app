@@ -33,7 +33,7 @@ export default function PortalNavBar({ isLoggedIn, setIsSignOut, setShowAuth }) 
                   <NavDropdown title="User" id="basic-nav-dropdown" drop="left">
                     <NavDropdown.Item href="#construction/3.1">Profile</NavDropdown.Item>
                     <NavDropdown.Item href="#construction/3.2">Change Password</NavDropdown.Item>
-                    <NavDropdown.Item href="#construction/3.3">Something</NavDropdown.Item>
+                    {/* <NavDropdown.Item href="#construction/3.3">Something</NavDropdown.Item> */}
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="#" onClick={(e) => logOut(e)} active={false}>
                       Logout
